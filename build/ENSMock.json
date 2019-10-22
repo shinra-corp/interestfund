@@ -853,7 +853,7 @@
                             "name": "msg",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 1594,
+                            "referencedDeclaration": 10809,
                             "src": "914:3:10",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_message",
@@ -914,10 +914,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        1597,
-                        1598
+                        10812,
+                        10813
                       ],
-                      "referencedDeclaration": 1598,
+                      "referencedDeclaration": 10813,
                       "src": "882:7:10",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -1984,7 +1984,7 @@
                             "name": "abi",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 1581,
+                            "referencedDeclaration": 10796,
                             "src": "2595:3:10",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_abi",
@@ -2031,7 +2031,7 @@
                       "name": "keccak256",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1588,
+                      "referencedDeclaration": 10803,
                       "src": "2585:9:10",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_keccak256_pure$_t_bytes_memory_ptr_$returns$_t_bytes32_$",
@@ -3539,7 +3539,7 @@
                             "name": "msg",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 1594,
+                            "referencedDeclaration": 10809,
                             "src": "914:3:10",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_message",
@@ -3600,10 +3600,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        1597,
-                        1598
+                        10812,
+                        10813
                       ],
-                      "referencedDeclaration": 1598,
+                      "referencedDeclaration": 10813,
                       "src": "882:7:10",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -4670,7 +4670,7 @@
                             "name": "abi",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 1581,
+                            "referencedDeclaration": 10796,
                             "src": "2595:3:10",
                             "typeDescriptions": {
                               "typeIdentifier": "t_magic_abi",
@@ -4717,7 +4717,7 @@
                       "name": "keccak256",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1588,
+                      "referencedDeclaration": 10803,
                       "src": "2585:9:10",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_keccak256_pure$_t_bytes_memory_ptr_$returns$_t_bytes32_$",
@@ -5635,5 +5635,5 @@
   },
   "networks": {},
   "schemaVersion": "2.2.4",
-  "updatedAt": "2019-10-22T18:27:31.693Z"
+  "updatedAt": "2019-10-22T21:23:05.450Z"
 }
