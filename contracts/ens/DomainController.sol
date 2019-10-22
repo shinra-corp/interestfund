@@ -44,7 +44,7 @@ contract DomainController is Ownable {
         require(register[_node] == false, 'subdomain register');
 
         //register a new sub domain
-        ens.setSubnodeOwner(_node, _label, address(this));
+        ens.setSubnodeOwner(rootNode, _label, address(this));
 
         //set resolver of subdomain
 //        resolver.setAddr(_node, endpoint);

@@ -13,11 +13,9 @@ const DomainController = require("../build/DomainController.json");
 
 
 const deploy = async (network, secret) => {
-
+    const rootNode = utils.namehash("interestfund.eth");
 
 	const deployer = new etherlime.EtherlimeGanacheDeployer();
-    const asFundFactory = deployer.signer;
-
 
     const deployDispatcher = await deployer.deploy(Dispatcher);
 	const deployResolver = await deployer.deploy(Resolver);
@@ -27,17 +25,23 @@ const deploy = async (network, secret) => {
         deployResolver.contractAddress
     );
 
-    const deployENS = await deployer.deploy(ENS, {}, utils.namehash("interestfund.eth"), deployFundFactory.contractAddress);
+    const deployENS = await deployer.deploy(ENS, {}, rootNode, deployer.signer.address);
+
     const deployDomainController = await deployer.deploy(
         DomainController,
         {},
-        utils.namehash("interestfund.eth"),
+        rootNode,
         deployFundFactory.contractAddress,
         deployENS.contractAddress,
         deployENS.contractAddress
     );
-    let s = await deployDomainController.ret();
-    console.log(s);
+
+
+    const changeOwner = await deployENS.setOwner(rootNode, deployDomainController.contractAddress);
+    const changeOwnerResult = await deployENS.verboseWaitForTransaction(changeOwner);
+    await deployENS.owner(rootNode);
+
+    await deployFundFactory.setDomainController(deployDomainController.contractAddress);
 
 };
 

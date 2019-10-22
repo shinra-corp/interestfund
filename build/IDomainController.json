@@ -55,19 +55,19 @@
   "deployedBytecode": "0x",
   "sourceMap": "",
   "deployedSourceMap": "",
-  "source": "pragma solidity ^0.5.11;\n\nimport \"./Fund.sol\";\nimport \"./utils/Ownable.sol\";\n\ninterface IDomainController {\n\n    function newSubDomain(string calldata label, address endpoint, address manager) external;\n    function transferDomain() external;\n    function changeAsker(address _newAsker) external;\n\n}\n\ncontract FundFactory is Ownable {\n\n    event NewFunding(address indexed manager, address indexed at);\n    event DomainControllerChange(address indexed old, address indexed _new);\n\n    address public resolver;\n    address public dispatcher;\n    IDomainController public controller;\n\n    address[] public funds;\n    mapping(address => bool) isFund;\n\n    constructor(address _tokenResolver) public {\n        require(_tokenResolver != address(0), 'Error: Resolver invalid');\n        resolver = _tokenResolver;\n    }\n\n    function setDomainController(address _controller) public onlyOwner {\n        require(_controller != address(0), 'Error: Controller invalid');\n\n        emit DomainControllerChange(address(controller), _controller);\n        controller = IDomainController(_controller);\n    }\n\n    function newFunding(string memory _URI) public {\n        Fund _fund = new Fund(msg.sender, address(resolver), _URI);\n        funds.push(address(_fund));\n        isFund[address(_fund)] = true;\n\n        //set subdomain name and resolver\n\n        emit NewFunding(msg.sender, address(_fund));\n    }\n\n}\n",
+  "source": "pragma solidity ^0.5.11;\n\nimport \"./Fund.sol\";\nimport \"./utils/Ownable.sol\";\n\ninterface IDomainController {\n\n    function newSubDomain(string calldata label, address endpoint, address manager) external;\n    function transferDomain() external;\n    function changeAsker(address _newAsker) external;\n\n}\n\ncontract FundFactory is Ownable {\n\n    event NewFunding(address indexed manager, address indexed at);\n    event DomainControllerChange(address indexed old, address indexed _new);\n\n    address public resolver;\n    address public dispatcher;\n    IDomainController public controller;\n\n    address[] public funds;\n    mapping(address => bool) isFund;\n\n    constructor(address _tokenResolver) public {\n        require(_tokenResolver != address(0), 'Error: Resolver invalid');\n        resolver = _tokenResolver;\n    }\n\n    function setDomainController(address _controller) public onlyOwner {\n        require(_controller != address(0), 'Error: Controller invalid');\n\n        emit DomainControllerChange(address(controller), _controller);\n        controller = IDomainController(_controller);\n    }\n\n    function newFunding(string memory _URI) public {\n        Fund _fund = new Fund(msg.sender, address(resolver), _URI);\n        funds.push(address(_fund));\n        isFund[address(_fund)] = true;\n\n        //set subdomain name and resolver\n        controller.newSubDomain(_URI, address(_fund), msg.sender);\n        emit NewFunding(msg.sender, address(_fund));\n    }\n\n}\n",
   "sourcePath": "/Users/logic/eth/interestfund/contracts/FundFactory.sol",
   "ast": {
     "absolutePath": "/Users/logic/eth/interestfund/contracts/FundFactory.sol",
     "exportedSymbols": {
       "FundFactory": [
-        624
+        635
       ],
       "IDomainController": [
         505
       ]
     },
-    "id": 625,
+    "id": 636,
     "nodeType": "SourceUnit",
     "nodes": [
       {
@@ -86,7 +86,7 @@
         "file": "./Fund.sol",
         "id": 486,
         "nodeType": "ImportDirective",
-        "scope": 625,
+        "scope": 636,
         "sourceUnit": 484,
         "src": "26:20:2",
         "symbolAliases": [],
@@ -97,8 +97,8 @@
         "file": "./utils/Ownable.sol",
         "id": 487,
         "nodeType": "ImportDirective",
-        "scope": 625,
-        "sourceUnit": 1404,
+        "scope": 636,
+        "sourceUnit": 1415,
         "src": "47:29:2",
         "symbolAliases": [],
         "unitAlias": ""
@@ -307,7 +307,7 @@
             "visibility": "external"
           }
         ],
-        "scope": 625,
+        "scope": 636,
         "src": "78:221:2"
       },
       {
@@ -319,10 +319,10 @@
               "id": 506,
               "name": "Ownable",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 1403,
+              "referencedDeclaration": 1414,
               "src": "325:7:2",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_Ownable_$1403",
+                "typeIdentifier": "t_contract$_Ownable_$1414",
                 "typeString": "contract Ownable"
               }
             },
@@ -333,15 +333,15 @@
         ],
         "contractDependencies": [
           483,
-          1403
+          1414
         ],
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 624,
+        "id": 635,
         "linearizedBaseContracts": [
-          624,
-          1403
+          635,
+          1414
         ],
         "name": "FundFactory",
         "nodeType": "ContractDefinition",
@@ -493,7 +493,7 @@
             "id": 521,
             "name": "resolver",
             "nodeType": "VariableDeclaration",
-            "scope": 624,
+            "scope": 635,
             "src": "485:23:2",
             "stateVariable": true,
             "storageLocation": "default",
@@ -520,7 +520,7 @@
             "id": 523,
             "name": "dispatcher",
             "nodeType": "VariableDeclaration",
-            "scope": 624,
+            "scope": 635,
             "src": "514:25:2",
             "stateVariable": true,
             "storageLocation": "default",
@@ -547,7 +547,7 @@
             "id": 525,
             "name": "controller",
             "nodeType": "VariableDeclaration",
-            "scope": 624,
+            "scope": 635,
             "src": "545:35:2",
             "stateVariable": true,
             "storageLocation": "default",
@@ -575,7 +575,7 @@
             "id": 528,
             "name": "funds",
             "nodeType": "VariableDeclaration",
-            "scope": 624,
+            "scope": 635,
             "src": "587:22:2",
             "stateVariable": true,
             "storageLocation": "default",
@@ -612,7 +612,7 @@
             "id": 532,
             "name": "isFund",
             "nodeType": "VariableDeclaration",
-            "scope": 624,
+            "scope": 635,
             "src": "615:31:2",
             "stateVariable": true,
             "storageLocation": "default",
@@ -784,10 +784,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        1586,
-                        1587
+                        1597,
+                        1598
                       ],
-                      "referencedDeclaration": 1587,
+                      "referencedDeclaration": 1598,
                       "src": "706:7:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -907,7 +907,7 @@
               "parameters": [],
               "src": "696:0:2"
             },
-            "scope": 624,
+            "scope": 635,
             "src": "653:159:2",
             "stateMutability": "nonpayable",
             "superFunction": null,
@@ -1045,10 +1045,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        1586,
-                        1587
+                        1597,
+                        1598
                       ],
-                      "referencedDeclaration": 1587,
+                      "referencedDeclaration": 1598,
                       "src": "895:7:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -1280,7 +1280,7 @@
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 1402,
+                  "referencedDeclaration": 1413,
                   "src": "875:9:2",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -1333,7 +1333,7 @@
               "parameters": [],
               "src": "885:0:2"
             },
-            "scope": 624,
+            "scope": 635,
             "src": "818:272:2",
             "stateMutability": "nonpayable",
             "superFunction": null,
@@ -1341,9 +1341,9 @@
           },
           {
             "body": {
-              "id": 622,
+              "id": 633,
               "nodeType": "Block",
-              "src": "1143:247:2",
+              "src": "1143:313:2",
               "statements": [
                 {
                   "assignments": [
@@ -1355,7 +1355,7 @@
                       "id": 587,
                       "name": "_fund",
                       "nodeType": "VariableDeclaration",
-                      "scope": 622,
+                      "scope": 633,
                       "src": "1153:10:2",
                       "stateVariable": false,
                       "storageLocation": "default",
@@ -1391,7 +1391,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1583,
+                          "referencedDeclaration": 1594,
                           "src": "1175:3:2",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -1758,36 +1758,20 @@
                   "src": "1257:29:2"
                 },
                 {
-                  "eventCall": {
+                  "expression": {
                     "argumentTypes": null,
                     "arguments": [
                       {
                         "argumentTypes": null,
-                        "expression": {
-                          "argumentTypes": null,
-                          "id": 615,
-                          "name": "msg",
-                          "nodeType": "Identifier",
-                          "overloadedDeclarations": [],
-                          "referencedDeclaration": 1583,
-                          "src": "1356:3:2",
-                          "typeDescriptions": {
-                            "typeIdentifier": "t_magic_message",
-                            "typeString": "msg"
-                          }
-                        },
-                        "id": 616,
-                        "isConstant": false,
-                        "isLValue": false,
-                        "isPure": false,
-                        "lValueRequested": false,
-                        "memberName": "sender",
-                        "nodeType": "MemberAccess",
-                        "referencedDeclaration": null,
-                        "src": "1356:10:2",
+                        "id": 617,
+                        "name": "_URI",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 583,
+                        "src": "1363:4:2",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_address_payable",
-                          "typeString": "address payable"
+                          "typeIdentifier": "t_string_memory_ptr",
+                          "typeString": "string memory"
                         }
                       },
                       {
@@ -1795,12 +1779,12 @@
                         "arguments": [
                           {
                             "argumentTypes": null,
-                            "id": 618,
+                            "id": 619,
                             "name": "_fund",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
                             "referencedDeclaration": 587,
-                            "src": "1376:5:2",
+                            "src": "1377:5:2",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_Fund_$483",
                               "typeString": "contract Fund"
@@ -1814,20 +1798,20 @@
                               "typeString": "contract Fund"
                             }
                           ],
-                          "id": 617,
+                          "id": 618,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
                           "lValueRequested": false,
                           "nodeType": "ElementaryTypeNameExpression",
-                          "src": "1368:7:2",
+                          "src": "1369:7:2",
                           "typeDescriptions": {
                             "typeIdentifier": "t_type$_t_address_$",
                             "typeString": "type(address)"
                           },
                           "typeName": "address"
                         },
-                        "id": 619,
+                        "id": 620,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -1835,7 +1819,181 @@
                         "lValueRequested": false,
                         "names": [],
                         "nodeType": "FunctionCall",
-                        "src": "1368:14:2",
+                        "src": "1369:14:2",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address_payable",
+                          "typeString": "address payable"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "id": 621,
+                          "name": "msg",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 1594,
+                          "src": "1385:3:2",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_magic_message",
+                            "typeString": "msg"
+                          }
+                        },
+                        "id": 622,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "sender",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": null,
+                        "src": "1385:10:2",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address_payable",
+                          "typeString": "address payable"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_string_memory_ptr",
+                          "typeString": "string memory"
+                        },
+                        {
+                          "typeIdentifier": "t_address_payable",
+                          "typeString": "address payable"
+                        },
+                        {
+                          "typeIdentifier": "t_address_payable",
+                          "typeString": "address payable"
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 614,
+                        "name": "controller",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 525,
+                        "src": "1339:10:2",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_contract$_IDomainController_$505",
+                          "typeString": "contract IDomainController"
+                        }
+                      },
+                      "id": 616,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "newSubDomain",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 496,
+                      "src": "1339:23:2",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_external_nonpayable$_t_string_memory_ptr_$_t_address_$_t_address_$returns$__$",
+                        "typeString": "function (string memory,address,address) external"
+                      }
+                    },
+                    "id": 623,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1339:57:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 624,
+                  "nodeType": "ExpressionStatement",
+                  "src": "1339:57:2"
+                },
+                {
+                  "eventCall": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "id": 626,
+                          "name": "msg",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 1594,
+                          "src": "1422:3:2",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_magic_message",
+                            "typeString": "msg"
+                          }
+                        },
+                        "id": 627,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "sender",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": null,
+                        "src": "1422:10:2",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address_payable",
+                          "typeString": "address payable"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "arguments": [
+                          {
+                            "argumentTypes": null,
+                            "id": 629,
+                            "name": "_fund",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 587,
+                            "src": "1442:5:2",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_contract$_Fund_$483",
+                              "typeString": "contract Fund"
+                            }
+                          }
+                        ],
+                        "expression": {
+                          "argumentTypes": [
+                            {
+                              "typeIdentifier": "t_contract$_Fund_$483",
+                              "typeString": "contract Fund"
+                            }
+                          ],
+                          "id": 628,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": true,
+                          "lValueRequested": false,
+                          "nodeType": "ElementaryTypeNameExpression",
+                          "src": "1434:7:2",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_type$_t_address_$",
+                            "typeString": "type(address)"
+                          },
+                          "typeName": "address"
+                        },
+                        "id": 630,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "kind": "typeConversion",
+                        "lValueRequested": false,
+                        "names": [],
+                        "nodeType": "FunctionCall",
+                        "src": "1434:14:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address_payable",
                           "typeString": "address payable"
@@ -1853,18 +2011,18 @@
                           "typeString": "address payable"
                         }
                       ],
-                      "id": 614,
+                      "id": 625,
                       "name": "NewFunding",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
                       "referencedDeclaration": 513,
-                      "src": "1345:10:2",
+                      "src": "1411:10:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_event_nonpayable$_t_address_$_t_address_$returns$__$",
                         "typeString": "function (address,address)"
                       }
                     },
-                    "id": 620,
+                    "id": 631,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -1872,20 +2030,20 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "1345:38:2",
+                    "src": "1411:38:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_tuple$__$",
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 621,
+                  "id": 632,
                   "nodeType": "EmitStatement",
-                  "src": "1340:43:2"
+                  "src": "1406:43:2"
                 }
               ]
             },
             "documentation": null,
-            "id": 623,
+            "id": 634,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
@@ -1900,7 +2058,7 @@
                   "id": 583,
                   "name": "_URI",
                   "nodeType": "VariableDeclaration",
-                  "scope": 623,
+                  "scope": 634,
                   "src": "1116:18:2",
                   "stateVariable": false,
                   "storageLocation": "memory",
@@ -1930,30 +2088,30 @@
               "parameters": [],
               "src": "1143:0:2"
             },
-            "scope": 624,
-            "src": "1096:294:2",
+            "scope": 635,
+            "src": "1096:360:2",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 625,
-        "src": "301:1092:2"
+        "scope": 636,
+        "src": "301:1158:2"
       }
     ],
-    "src": "0:1394:2"
+    "src": "0:1460:2"
   },
   "legacyAST": {
     "absolutePath": "/Users/logic/eth/interestfund/contracts/FundFactory.sol",
     "exportedSymbols": {
       "FundFactory": [
-        624
+        635
       ],
       "IDomainController": [
         505
       ]
     },
-    "id": 625,
+    "id": 636,
     "nodeType": "SourceUnit",
     "nodes": [
       {
@@ -1972,7 +2130,7 @@
         "file": "./Fund.sol",
         "id": 486,
         "nodeType": "ImportDirective",
-        "scope": 625,
+        "scope": 636,
         "sourceUnit": 484,
         "src": "26:20:2",
         "symbolAliases": [],
@@ -1983,8 +2141,8 @@
         "file": "./utils/Ownable.sol",
         "id": 487,
         "nodeType": "ImportDirective",
-        "scope": 625,
-        "sourceUnit": 1404,
+        "scope": 636,
+        "sourceUnit": 1415,
         "src": "47:29:2",
         "symbolAliases": [],
         "unitAlias": ""
@@ -2193,7 +2351,7 @@
             "visibility": "external"
           }
         ],
-        "scope": 625,
+        "scope": 636,
         "src": "78:221:2"
       },
       {
@@ -2205,10 +2363,10 @@
               "id": 506,
               "name": "Ownable",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 1403,
+              "referencedDeclaration": 1414,
               "src": "325:7:2",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_Ownable_$1403",
+                "typeIdentifier": "t_contract$_Ownable_$1414",
                 "typeString": "contract Ownable"
               }
             },
@@ -2219,15 +2377,15 @@
         ],
         "contractDependencies": [
           483,
-          1403
+          1414
         ],
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 624,
+        "id": 635,
         "linearizedBaseContracts": [
-          624,
-          1403
+          635,
+          1414
         ],
         "name": "FundFactory",
         "nodeType": "ContractDefinition",
@@ -2379,7 +2537,7 @@
             "id": 521,
             "name": "resolver",
             "nodeType": "VariableDeclaration",
-            "scope": 624,
+            "scope": 635,
             "src": "485:23:2",
             "stateVariable": true,
             "storageLocation": "default",
@@ -2406,7 +2564,7 @@
             "id": 523,
             "name": "dispatcher",
             "nodeType": "VariableDeclaration",
-            "scope": 624,
+            "scope": 635,
             "src": "514:25:2",
             "stateVariable": true,
             "storageLocation": "default",
@@ -2433,7 +2591,7 @@
             "id": 525,
             "name": "controller",
             "nodeType": "VariableDeclaration",
-            "scope": 624,
+            "scope": 635,
             "src": "545:35:2",
             "stateVariable": true,
             "storageLocation": "default",
@@ -2461,7 +2619,7 @@
             "id": 528,
             "name": "funds",
             "nodeType": "VariableDeclaration",
-            "scope": 624,
+            "scope": 635,
             "src": "587:22:2",
             "stateVariable": true,
             "storageLocation": "default",
@@ -2498,7 +2656,7 @@
             "id": 532,
             "name": "isFund",
             "nodeType": "VariableDeclaration",
-            "scope": 624,
+            "scope": 635,
             "src": "615:31:2",
             "stateVariable": true,
             "storageLocation": "default",
@@ -2670,10 +2828,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        1586,
-                        1587
+                        1597,
+                        1598
                       ],
-                      "referencedDeclaration": 1587,
+                      "referencedDeclaration": 1598,
                       "src": "706:7:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -2793,7 +2951,7 @@
               "parameters": [],
               "src": "696:0:2"
             },
-            "scope": 624,
+            "scope": 635,
             "src": "653:159:2",
             "stateMutability": "nonpayable",
             "superFunction": null,
@@ -2931,10 +3089,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        1586,
-                        1587
+                        1597,
+                        1598
                       ],
-                      "referencedDeclaration": 1587,
+                      "referencedDeclaration": 1598,
                       "src": "895:7:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -3166,7 +3324,7 @@
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 1402,
+                  "referencedDeclaration": 1413,
                   "src": "875:9:2",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -3219,7 +3377,7 @@
               "parameters": [],
               "src": "885:0:2"
             },
-            "scope": 624,
+            "scope": 635,
             "src": "818:272:2",
             "stateMutability": "nonpayable",
             "superFunction": null,
@@ -3227,9 +3385,9 @@
           },
           {
             "body": {
-              "id": 622,
+              "id": 633,
               "nodeType": "Block",
-              "src": "1143:247:2",
+              "src": "1143:313:2",
               "statements": [
                 {
                   "assignments": [
@@ -3241,7 +3399,7 @@
                       "id": 587,
                       "name": "_fund",
                       "nodeType": "VariableDeclaration",
-                      "scope": 622,
+                      "scope": 633,
                       "src": "1153:10:2",
                       "stateVariable": false,
                       "storageLocation": "default",
@@ -3277,7 +3435,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1583,
+                          "referencedDeclaration": 1594,
                           "src": "1175:3:2",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -3644,36 +3802,20 @@
                   "src": "1257:29:2"
                 },
                 {
-                  "eventCall": {
+                  "expression": {
                     "argumentTypes": null,
                     "arguments": [
                       {
                         "argumentTypes": null,
-                        "expression": {
-                          "argumentTypes": null,
-                          "id": 615,
-                          "name": "msg",
-                          "nodeType": "Identifier",
-                          "overloadedDeclarations": [],
-                          "referencedDeclaration": 1583,
-                          "src": "1356:3:2",
-                          "typeDescriptions": {
-                            "typeIdentifier": "t_magic_message",
-                            "typeString": "msg"
-                          }
-                        },
-                        "id": 616,
-                        "isConstant": false,
-                        "isLValue": false,
-                        "isPure": false,
-                        "lValueRequested": false,
-                        "memberName": "sender",
-                        "nodeType": "MemberAccess",
-                        "referencedDeclaration": null,
-                        "src": "1356:10:2",
+                        "id": 617,
+                        "name": "_URI",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 583,
+                        "src": "1363:4:2",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_address_payable",
-                          "typeString": "address payable"
+                          "typeIdentifier": "t_string_memory_ptr",
+                          "typeString": "string memory"
                         }
                       },
                       {
@@ -3681,12 +3823,12 @@
                         "arguments": [
                           {
                             "argumentTypes": null,
-                            "id": 618,
+                            "id": 619,
                             "name": "_fund",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
                             "referencedDeclaration": 587,
-                            "src": "1376:5:2",
+                            "src": "1377:5:2",
                             "typeDescriptions": {
                               "typeIdentifier": "t_contract$_Fund_$483",
                               "typeString": "contract Fund"
@@ -3700,20 +3842,20 @@
                               "typeString": "contract Fund"
                             }
                           ],
-                          "id": 617,
+                          "id": 618,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
                           "lValueRequested": false,
                           "nodeType": "ElementaryTypeNameExpression",
-                          "src": "1368:7:2",
+                          "src": "1369:7:2",
                           "typeDescriptions": {
                             "typeIdentifier": "t_type$_t_address_$",
                             "typeString": "type(address)"
                           },
                           "typeName": "address"
                         },
-                        "id": 619,
+                        "id": 620,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -3721,7 +3863,181 @@
                         "lValueRequested": false,
                         "names": [],
                         "nodeType": "FunctionCall",
-                        "src": "1368:14:2",
+                        "src": "1369:14:2",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address_payable",
+                          "typeString": "address payable"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "id": 621,
+                          "name": "msg",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 1594,
+                          "src": "1385:3:2",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_magic_message",
+                            "typeString": "msg"
+                          }
+                        },
+                        "id": 622,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "sender",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": null,
+                        "src": "1385:10:2",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address_payable",
+                          "typeString": "address payable"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_string_memory_ptr",
+                          "typeString": "string memory"
+                        },
+                        {
+                          "typeIdentifier": "t_address_payable",
+                          "typeString": "address payable"
+                        },
+                        {
+                          "typeIdentifier": "t_address_payable",
+                          "typeString": "address payable"
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 614,
+                        "name": "controller",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 525,
+                        "src": "1339:10:2",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_contract$_IDomainController_$505",
+                          "typeString": "contract IDomainController"
+                        }
+                      },
+                      "id": 616,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "newSubDomain",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 496,
+                      "src": "1339:23:2",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_external_nonpayable$_t_string_memory_ptr_$_t_address_$_t_address_$returns$__$",
+                        "typeString": "function (string memory,address,address) external"
+                      }
+                    },
+                    "id": 623,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1339:57:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 624,
+                  "nodeType": "ExpressionStatement",
+                  "src": "1339:57:2"
+                },
+                {
+                  "eventCall": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "id": 626,
+                          "name": "msg",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 1594,
+                          "src": "1422:3:2",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_magic_message",
+                            "typeString": "msg"
+                          }
+                        },
+                        "id": 627,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "sender",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": null,
+                        "src": "1422:10:2",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address_payable",
+                          "typeString": "address payable"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "arguments": [
+                          {
+                            "argumentTypes": null,
+                            "id": 629,
+                            "name": "_fund",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 587,
+                            "src": "1442:5:2",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_contract$_Fund_$483",
+                              "typeString": "contract Fund"
+                            }
+                          }
+                        ],
+                        "expression": {
+                          "argumentTypes": [
+                            {
+                              "typeIdentifier": "t_contract$_Fund_$483",
+                              "typeString": "contract Fund"
+                            }
+                          ],
+                          "id": 628,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": true,
+                          "lValueRequested": false,
+                          "nodeType": "ElementaryTypeNameExpression",
+                          "src": "1434:7:2",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_type$_t_address_$",
+                            "typeString": "type(address)"
+                          },
+                          "typeName": "address"
+                        },
+                        "id": 630,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "kind": "typeConversion",
+                        "lValueRequested": false,
+                        "names": [],
+                        "nodeType": "FunctionCall",
+                        "src": "1434:14:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address_payable",
                           "typeString": "address payable"
@@ -3739,18 +4055,18 @@
                           "typeString": "address payable"
                         }
                       ],
-                      "id": 614,
+                      "id": 625,
                       "name": "NewFunding",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
                       "referencedDeclaration": 513,
-                      "src": "1345:10:2",
+                      "src": "1411:10:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_event_nonpayable$_t_address_$_t_address_$returns$__$",
                         "typeString": "function (address,address)"
                       }
                     },
-                    "id": 620,
+                    "id": 631,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -3758,20 +4074,20 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "1345:38:2",
+                    "src": "1411:38:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_tuple$__$",
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 621,
+                  "id": 632,
                   "nodeType": "EmitStatement",
-                  "src": "1340:43:2"
+                  "src": "1406:43:2"
                 }
               ]
             },
             "documentation": null,
-            "id": 623,
+            "id": 634,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
@@ -3786,7 +4102,7 @@
                   "id": 583,
                   "name": "_URI",
                   "nodeType": "VariableDeclaration",
-                  "scope": 623,
+                  "scope": 634,
                   "src": "1116:18:2",
                   "stateVariable": false,
                   "storageLocation": "memory",
@@ -3816,18 +4132,18 @@
               "parameters": [],
               "src": "1143:0:2"
             },
-            "scope": 624,
-            "src": "1096:294:2",
+            "scope": 635,
+            "src": "1096:360:2",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 625,
-        "src": "301:1092:2"
+        "scope": 636,
+        "src": "301:1158:2"
       }
     ],
-    "src": "0:1394:2"
+    "src": "0:1460:2"
   },
   "compiler": {
     "name": "solc",
@@ -3837,5 +4153,5 @@
   },
   "networks": {},
   "schemaVersion": "2.2.4",
-  "updatedAt": "2019-10-22T10:09:14.531Z"
+  "updatedAt": "2019-10-22T18:27:31.682Z"
 }

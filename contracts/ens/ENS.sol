@@ -15,4 +15,5 @@ contract ENS {
     function setResolver(bytes32 _node, address _resolver) public;
 
     function setTTL(bytes32 _node, uint64 _ttl) public;
+
 }
