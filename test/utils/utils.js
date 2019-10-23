@@ -1,4 +1,5 @@
 const resolverMock = require("../../build/Resolver.json");
+const ethers = require("ethers");
 
 module.exports = {
 
@@ -21,5 +22,9 @@ module.exports = {
         }
 
         return instance;
+    },
+
+    namehash: function(nameString) {
+        return ethers.utils.namehash(nameString);
     }
 }

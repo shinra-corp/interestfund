@@ -122,14 +122,14 @@
     "absolutePath": "/Users/logic/eth/interestfund/contracts/mocks/SimpleContract.sol",
     "exportedSymbols": {
       "SimpleContract": [
-        1341
+        1330
       ]
     },
-    "id": 1342,
+    "id": 1331,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1321,
+        "id": 1310,
         "literals": [
           "solidity",
           "^",
@@ -142,10 +142,10 @@
       {
         "absolutePath": "/Users/logic/eth/interestfund/contracts/utils/Ownable.sol",
         "file": "../utils/Ownable.sol",
-        "id": 1322,
+        "id": 1311,
         "nodeType": "ImportDirective",
-        "scope": 1342,
-        "sourceUnit": 10641,
+        "scope": 1331,
+        "sourceUnit": 10630,
         "src": "26:30:11",
         "symbolAliases": [],
         "unitAlias": ""
@@ -156,41 +156,41 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 1323,
+              "id": 1312,
               "name": "Ownable",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 10640,
+              "referencedDeclaration": 10629,
               "src": "85:7:11",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_Ownable_$10640",
+                "typeIdentifier": "t_contract$_Ownable_$10629",
                 "typeString": "contract Ownable"
               }
             },
-            "id": 1324,
+            "id": 1313,
             "nodeType": "InheritanceSpecifier",
             "src": "85:7:11"
           }
         ],
         "contractDependencies": [
-          10640
+          10629
         ],
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 1341,
+        "id": 1330,
         "linearizedBaseContracts": [
-          1341,
-          10640
+          1330,
+          10629
         ],
         "name": "SimpleContract",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": false,
-            "id": 1326,
+            "id": 1315,
             "name": "counter",
             "nodeType": "VariableDeclaration",
-            "scope": 1341,
+            "scope": 1330,
             "src": "100:22:11",
             "stateVariable": true,
             "storageLocation": "default",
@@ -199,7 +199,7 @@
               "typeString": "uint256"
             },
             "typeName": {
-              "id": 1325,
+              "id": 1314,
               "name": "uint256",
               "nodeType": "ElementaryTypeName",
               "src": "100:7:11",
@@ -213,31 +213,31 @@
           },
           {
             "body": {
-              "id": 1329,
+              "id": 1318,
               "nodeType": "Block",
               "src": "150:7:11",
               "statements": []
             },
             "documentation": null,
-            "id": 1330,
+            "id": 1319,
             "implemented": true,
             "kind": "constructor",
             "modifiers": [],
             "name": "",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1327,
+              "id": 1316,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "140:2:11"
             },
             "returnParameters": {
-              "id": 1328,
+              "id": 1317,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "150:0:11"
             },
-            "scope": 1341,
+            "scope": 1330,
             "src": "129:28:11",
             "stateMutability": "nonpayable",
             "superFunction": null,
@@ -245,25 +245,25 @@
           },
           {
             "body": {
-              "id": 1339,
+              "id": 1328,
               "nodeType": "Block",
               "src": "202:29:11",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 1337,
+                    "id": 1326,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 1335,
+                      "id": 1324,
                       "name": "counter",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1326,
+                      "referencedDeclaration": 1315,
                       "src": "212:7:11",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
@@ -275,7 +275,7 @@
                     "rightHandSide": {
                       "argumentTypes": null,
                       "hexValue": "31",
-                      "id": 1336,
+                      "id": 1325,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": true,
@@ -296,27 +296,27 @@
                       "typeString": "uint256"
                     }
                   },
-                  "id": 1338,
+                  "id": 1327,
                   "nodeType": "ExpressionStatement",
                   "src": "212:12:11"
                 }
               ]
             },
             "documentation": null,
-            "id": 1340,
+            "id": 1329,
             "implemented": true,
             "kind": "function",
             "modifiers": [
               {
                 "arguments": null,
-                "id": 1333,
+                "id": 1322,
                 "modifierName": {
                   "argumentTypes": null,
-                  "id": 1332,
+                  "id": 1321,
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 10639,
+                  "referencedDeclaration": 10628,
                   "src": "192:9:11",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -330,25 +330,25 @@
             "name": "addCounter",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1331,
+              "id": 1320,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "182:2:11"
             },
             "returnParameters": {
-              "id": 1334,
+              "id": 1323,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "202:0:11"
             },
-            "scope": 1341,
+            "scope": 1330,
             "src": "163:68:11",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 1342,
+        "scope": 1331,
         "src": "58:176:11"
       }
     ],
@@ -358,14 +358,14 @@
     "absolutePath": "/Users/logic/eth/interestfund/contracts/mocks/SimpleContract.sol",
     "exportedSymbols": {
       "SimpleContract": [
-        1341
+        1330
       ]
     },
-    "id": 1342,
+    "id": 1331,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1321,
+        "id": 1310,
         "literals": [
           "solidity",
           "^",
@@ -378,10 +378,10 @@
       {
         "absolutePath": "/Users/logic/eth/interestfund/contracts/utils/Ownable.sol",
         "file": "../utils/Ownable.sol",
-        "id": 1322,
+        "id": 1311,
         "nodeType": "ImportDirective",
-        "scope": 1342,
-        "sourceUnit": 10641,
+        "scope": 1331,
+        "sourceUnit": 10630,
         "src": "26:30:11",
         "symbolAliases": [],
         "unitAlias": ""
@@ -392,41 +392,41 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 1323,
+              "id": 1312,
               "name": "Ownable",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 10640,
+              "referencedDeclaration": 10629,
               "src": "85:7:11",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_Ownable_$10640",
+                "typeIdentifier": "t_contract$_Ownable_$10629",
                 "typeString": "contract Ownable"
               }
             },
-            "id": 1324,
+            "id": 1313,
             "nodeType": "InheritanceSpecifier",
             "src": "85:7:11"
           }
         ],
         "contractDependencies": [
-          10640
+          10629
         ],
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 1341,
+        "id": 1330,
         "linearizedBaseContracts": [
-          1341,
-          10640
+          1330,
+          10629
         ],
         "name": "SimpleContract",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": false,
-            "id": 1326,
+            "id": 1315,
             "name": "counter",
             "nodeType": "VariableDeclaration",
-            "scope": 1341,
+            "scope": 1330,
             "src": "100:22:11",
             "stateVariable": true,
             "storageLocation": "default",
@@ -435,7 +435,7 @@
               "typeString": "uint256"
             },
             "typeName": {
-              "id": 1325,
+              "id": 1314,
               "name": "uint256",
               "nodeType": "ElementaryTypeName",
               "src": "100:7:11",
@@ -449,31 +449,31 @@
           },
           {
             "body": {
-              "id": 1329,
+              "id": 1318,
               "nodeType": "Block",
               "src": "150:7:11",
               "statements": []
             },
             "documentation": null,
-            "id": 1330,
+            "id": 1319,
             "implemented": true,
             "kind": "constructor",
             "modifiers": [],
             "name": "",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1327,
+              "id": 1316,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "140:2:11"
             },
             "returnParameters": {
-              "id": 1328,
+              "id": 1317,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "150:0:11"
             },
-            "scope": 1341,
+            "scope": 1330,
             "src": "129:28:11",
             "stateMutability": "nonpayable",
             "superFunction": null,
@@ -481,25 +481,25 @@
           },
           {
             "body": {
-              "id": 1339,
+              "id": 1328,
               "nodeType": "Block",
               "src": "202:29:11",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 1337,
+                    "id": 1326,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 1335,
+                      "id": 1324,
                       "name": "counter",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 1326,
+                      "referencedDeclaration": 1315,
                       "src": "212:7:11",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
@@ -511,7 +511,7 @@
                     "rightHandSide": {
                       "argumentTypes": null,
                       "hexValue": "31",
-                      "id": 1336,
+                      "id": 1325,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": true,
@@ -532,27 +532,27 @@
                       "typeString": "uint256"
                     }
                   },
-                  "id": 1338,
+                  "id": 1327,
                   "nodeType": "ExpressionStatement",
                   "src": "212:12:11"
                 }
               ]
             },
             "documentation": null,
-            "id": 1340,
+            "id": 1329,
             "implemented": true,
             "kind": "function",
             "modifiers": [
               {
                 "arguments": null,
-                "id": 1333,
+                "id": 1322,
                 "modifierName": {
                   "argumentTypes": null,
-                  "id": 1332,
+                  "id": 1321,
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 10639,
+                  "referencedDeclaration": 10628,
                   "src": "192:9:11",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -566,25 +566,25 @@
             "name": "addCounter",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1331,
+              "id": 1320,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "182:2:11"
             },
             "returnParameters": {
-              "id": 1334,
+              "id": 1323,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "202:0:11"
             },
-            "scope": 1341,
+            "scope": 1330,
             "src": "163:68:11",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 1342,
+        "scope": 1331,
         "src": "58:176:11"
       }
     ],
@@ -598,5 +598,5 @@
   },
   "networks": {},
   "schemaVersion": "2.2.4",
-  "updatedAt": "2019-10-23T11:47:55.400Z"
+  "updatedAt": "2019-10-23T14:04:58.894Z"
 }

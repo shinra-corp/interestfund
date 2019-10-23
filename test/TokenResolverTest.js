@@ -1,25 +1,20 @@
 const etherlime = require('etherlime-lib');
-const Ownable = require("../build/Resolver.json");
 const utils = require("./utils/utils.js");
 
 describe('Token Resolver Test', () => {
     let firstAccount = accounts[0];
     let secondAccount = accounts[1];
     let deployer;
-    let Ownabl;
-
 
     before(async () => {
         deployer = new etherlime.EtherlimeGanacheDeployer(firstAccount.secretKey);
         resolver = await utils.ResolverMock(deployer, accounts);
     });
 
-
     it('should have a valid owner', async () => {
         let owner = await resolver.owner();
         assert.strictEqual(owner, firstAccount.signer.address);
     });
-
 
     it('should have the correct tokens resolvers', async() => {
 
