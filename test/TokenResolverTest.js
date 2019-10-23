@@ -1,12 +1,13 @@
 const etherlime = require('etherlime-lib');
-const TokenResolver = require("../build/Resolver.json");
+const Ownable = require("../build/Resolver.json");
 const utils = require("./utils/utils.js");
 
-describe('Toekn Resolver Test', () => {
+describe('Token Resolver Test', () => {
     let firstAccount = accounts[0];
     let secondAccount = accounts[1];
     let deployer;
-    let resolver;
+    let Ownabl;
+
 
     before(async () => {
         deployer = new etherlime.EtherlimeGanacheDeployer(firstAccount.secretKey);

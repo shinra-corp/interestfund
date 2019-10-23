@@ -64,7 +64,6 @@ contract Fund is ReentrancyGuard {
 
 
     function withdrawInterest(address _token, uint256 _amount) public onlyManager nonReentrant {
-
     }
 
 

@@ -23,10 +23,12 @@ contract FundFactory is Ownable {
     address[] public funds;
     mapping(address => bool) isFund;
 
+
     constructor(address _tokenResolver) public {
         require(_tokenResolver != address(0), 'Error: Resolver invalid');
         resolver = _tokenResolver;
     }
+
 
     function setDomainController(address _controller) public onlyOwner {
         require(_controller != address(0), 'Error: Controller invalid');
@@ -34,6 +36,7 @@ contract FundFactory is Ownable {
         emit DomainControllerChange(address(controller), _controller);
         controller = IDomainController(_controller);
     }
+
 
     function newFunding(string memory _URI) public {
         Fund _fund = new Fund(msg.sender, address(resolver), _URI);
@@ -44,5 +47,4 @@ contract FundFactory is Ownable {
         controller.newSubDomain(_URI, address(_fund), msg.sender);
         emit NewFunding(msg.sender, address(_fund));
     }
-
 }

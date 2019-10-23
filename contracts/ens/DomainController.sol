@@ -22,10 +22,6 @@ contract DomainController is Ownable {
 
     mapping(bytes32 => bool) public register;
 
-    function ret() public view returns(address) {
-        return msg.sender;
-    }
-
     constructor(bytes32 _rootNode, address _asker, address _ens, address _resolver) public {
         rootNode = _rootNode;
         asker = _asker;
@@ -44,7 +40,7 @@ contract DomainController is Ownable {
         require(register[_node] == false, 'subdomain register');
 
         //register a new sub domain
-        ens.setSubnodeOwner(rootNode, _label, address(this));
+        ens.setSubnodeOwner(rootNode, _label, endpoint);
 
         //set resolver of subdomain
 //        resolver.setAddr(_node, endpoint);

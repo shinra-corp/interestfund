@@ -74,14 +74,14 @@
     "absolutePath": "/Users/logic/eth/interestfund/contracts/ens/ENSResolver.sol",
     "exportedSymbols": {
       "ENSResolver": [
-        971
+        960
       ]
     },
-    "id": 972,
+    "id": 961,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 949,
+        "id": 938,
         "literals": [
           "solidity",
           "^",
@@ -97,9 +97,9 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": false,
-        "id": 971,
+        "id": 960,
         "linearizedBaseContracts": [
-          971
+          960
         ],
         "name": "ENSResolver",
         "nodeType": "ContractDefinition",
@@ -107,22 +107,22 @@
           {
             "body": null,
             "documentation": null,
-            "id": 956,
+            "id": 945,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "supportsInterface",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 952,
+              "id": 941,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 951,
+                  "id": 940,
                   "name": "_interfaceID",
                   "nodeType": "VariableDeclaration",
-                  "scope": 956,
+                  "scope": 945,
                   "src": "81:19:6",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -131,7 +131,7 @@
                     "typeString": "bytes4"
                   },
                   "typeName": {
-                    "id": 950,
+                    "id": 939,
                     "name": "bytes4",
                     "nodeType": "ElementaryTypeName",
                     "src": "81:6:6",
@@ -147,15 +147,15 @@
               "src": "80:21:6"
             },
             "returnParameters": {
-              "id": 955,
+              "id": 944,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 954,
+                  "id": 943,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 956,
+                  "scope": 945,
                   "src": "123:4:6",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -164,7 +164,7 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 953,
+                    "id": 942,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
                     "src": "123:4:6",
@@ -179,7 +179,7 @@
               ],
               "src": "122:6:6"
             },
-            "scope": 971,
+            "scope": 960,
             "src": "54:75:6",
             "stateMutability": "pure",
             "superFunction": null,
@@ -188,22 +188,22 @@
           {
             "body": null,
             "documentation": null,
-            "id": 963,
+            "id": 952,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "addr",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 959,
+              "id": 948,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 958,
+                  "id": 947,
                   "name": "_node",
                   "nodeType": "VariableDeclaration",
-                  "scope": 963,
+                  "scope": 952,
                   "src": "149:13:6",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -212,7 +212,7 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 957,
+                    "id": 946,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
                     "src": "149:7:6",
@@ -228,15 +228,15 @@
               "src": "148:15:6"
             },
             "returnParameters": {
-              "id": 962,
+              "id": 951,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 961,
+                  "id": 950,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 963,
+                  "scope": 952,
                   "src": "185:7:6",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -245,7 +245,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 960,
+                    "id": 949,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "185:7:6",
@@ -261,7 +261,7 @@
               ],
               "src": "184:9:6"
             },
-            "scope": 971,
+            "scope": 960,
             "src": "135:59:6",
             "stateMutability": "view",
             "superFunction": null,
@@ -270,22 +270,22 @@
           {
             "body": null,
             "documentation": null,
-            "id": 970,
+            "id": 959,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "setAddr",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 968,
+              "id": 957,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 965,
+                  "id": 954,
                   "name": "_node",
                   "nodeType": "VariableDeclaration",
-                  "scope": 970,
+                  "scope": 959,
                   "src": "217:13:6",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -294,7 +294,7 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 964,
+                    "id": 953,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
                     "src": "217:7:6",
@@ -308,10 +308,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 967,
+                  "id": 956,
                   "name": "_addr",
                   "nodeType": "VariableDeclaration",
-                  "scope": 970,
+                  "scope": 959,
                   "src": "232:13:6",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -320,7 +320,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 966,
+                    "id": 955,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "232:7:6",
@@ -337,19 +337,19 @@
               "src": "216:30:6"
             },
             "returnParameters": {
-              "id": 969,
+              "id": 958,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "253:0:6"
             },
-            "scope": 971,
+            "scope": 960,
             "src": "200:54:6",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 972,
+        "scope": 961,
         "src": "26:230:6"
       }
     ],
@@ -359,14 +359,14 @@
     "absolutePath": "/Users/logic/eth/interestfund/contracts/ens/ENSResolver.sol",
     "exportedSymbols": {
       "ENSResolver": [
-        971
+        960
       ]
     },
-    "id": 972,
+    "id": 961,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 949,
+        "id": 938,
         "literals": [
           "solidity",
           "^",
@@ -382,9 +382,9 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": false,
-        "id": 971,
+        "id": 960,
         "linearizedBaseContracts": [
-          971
+          960
         ],
         "name": "ENSResolver",
         "nodeType": "ContractDefinition",
@@ -392,22 +392,22 @@
           {
             "body": null,
             "documentation": null,
-            "id": 956,
+            "id": 945,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "supportsInterface",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 952,
+              "id": 941,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 951,
+                  "id": 940,
                   "name": "_interfaceID",
                   "nodeType": "VariableDeclaration",
-                  "scope": 956,
+                  "scope": 945,
                   "src": "81:19:6",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -416,7 +416,7 @@
                     "typeString": "bytes4"
                   },
                   "typeName": {
-                    "id": 950,
+                    "id": 939,
                     "name": "bytes4",
                     "nodeType": "ElementaryTypeName",
                     "src": "81:6:6",
@@ -432,15 +432,15 @@
               "src": "80:21:6"
             },
             "returnParameters": {
-              "id": 955,
+              "id": 944,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 954,
+                  "id": 943,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 956,
+                  "scope": 945,
                   "src": "123:4:6",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -449,7 +449,7 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 953,
+                    "id": 942,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
                     "src": "123:4:6",
@@ -464,7 +464,7 @@
               ],
               "src": "122:6:6"
             },
-            "scope": 971,
+            "scope": 960,
             "src": "54:75:6",
             "stateMutability": "pure",
             "superFunction": null,
@@ -473,22 +473,22 @@
           {
             "body": null,
             "documentation": null,
-            "id": 963,
+            "id": 952,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "addr",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 959,
+              "id": 948,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 958,
+                  "id": 947,
                   "name": "_node",
                   "nodeType": "VariableDeclaration",
-                  "scope": 963,
+                  "scope": 952,
                   "src": "149:13:6",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -497,7 +497,7 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 957,
+                    "id": 946,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
                     "src": "149:7:6",
@@ -513,15 +513,15 @@
               "src": "148:15:6"
             },
             "returnParameters": {
-              "id": 962,
+              "id": 951,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 961,
+                  "id": 950,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 963,
+                  "scope": 952,
                   "src": "185:7:6",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -530,7 +530,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 960,
+                    "id": 949,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "185:7:6",
@@ -546,7 +546,7 @@
               ],
               "src": "184:9:6"
             },
-            "scope": 971,
+            "scope": 960,
             "src": "135:59:6",
             "stateMutability": "view",
             "superFunction": null,
@@ -555,22 +555,22 @@
           {
             "body": null,
             "documentation": null,
-            "id": 970,
+            "id": 959,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "setAddr",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 968,
+              "id": 957,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 965,
+                  "id": 954,
                   "name": "_node",
                   "nodeType": "VariableDeclaration",
-                  "scope": 970,
+                  "scope": 959,
                   "src": "217:13:6",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -579,7 +579,7 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 964,
+                    "id": 953,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
                     "src": "217:7:6",
@@ -593,10 +593,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 967,
+                  "id": 956,
                   "name": "_addr",
                   "nodeType": "VariableDeclaration",
-                  "scope": 970,
+                  "scope": 959,
                   "src": "232:13:6",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -605,7 +605,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 966,
+                    "id": 955,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "232:7:6",
@@ -622,19 +622,19 @@
               "src": "216:30:6"
             },
             "returnParameters": {
-              "id": 969,
+              "id": 958,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "253:0:6"
             },
-            "scope": 971,
+            "scope": 960,
             "src": "200:54:6",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 972,
+        "scope": 961,
         "src": "26:230:6"
       }
     ],
@@ -648,5 +648,5 @@
   },
   "networks": {},
   "schemaVersion": "2.2.4",
-  "updatedAt": "2019-10-22T21:23:05.417Z"
+  "updatedAt": "2019-10-23T11:47:55.397Z"
 }

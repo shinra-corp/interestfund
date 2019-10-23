@@ -1,0 +1,602 @@
+{
+  "contractName": "SimpleContract",
+  "abi": [
+    {
+      "inputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "AcceptNewOwner",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "ProposedNewOwner",
+      "type": "event"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "acceptOwnership",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "changeOwner",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "counter",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "nextOwner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "addCounter",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x608060405234801561001057600080fd5b50336000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550610668806100606000396000f3fe608060405234801561001057600080fd5b50600436106100625760003560e01c806308615e551461006757806361bc221a1461007157806369f3331d1461008f57806379ba5097146100d95780638da5cb5b146100e3578063a6f9dae11461012d575b600080fd5b61006f610171565b005b610079610246565b6040518082815260200191505060405180910390f35b61009761024c565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b6100e1610272565b005b6100eb610422565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b61016f6004803603602081101561014357600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610447565b005b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614610233576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260098152602001807f6e6f74206f776e6572000000000000000000000000000000000000000000000081525060200191505060405180910390fd5b6001600260008282540192505081905550565b60025481565b600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614610335576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260128152602001807f6e6f7420746865206e657874206f776e6572000000000000000000000000000081525060200191505060405180910390fd5b600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff166000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550600160006101000a81549073ffffffffffffffffffffffffffffffffffffffff02191690556000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff167f6622f943a4caea62449b0455b7d00a3b6828b83ae5db93398640b9ac1a9ab55d60405160405180910390a2565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614610509576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260098152602001807f6e6f74206f776e6572000000000000000000000000000000000000000000000081525060200191505060405180910390fd5b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff1614156105ac576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260198152602001807f4d75737420626520612076616c6964206e6577204f776e65720000000000000081525060200191505060405180910390fd5b80600160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055508073ffffffffffffffffffffffffffffffffffffffff167f677af8624951b93e02b839a7fac5a21b2dfcb05b31e5daaf3fdd5fc0bbd64a6560405160405180910390a25056fea265627a7a72315820d2a03ee60addaeb0adcdbd502cdf3e8b8b39e54d3323516c743aa8f26f8821b764736f6c634300050c0032",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100625760003560e01c806308615e551461006757806361bc221a1461007157806369f3331d1461008f57806379ba5097146100d95780638da5cb5b146100e3578063a6f9dae11461012d575b600080fd5b61006f610171565b005b610079610246565b6040518082815260200191505060405180910390f35b61009761024c565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b6100e1610272565b005b6100eb610422565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b61016f6004803603602081101561014357600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610447565b005b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614610233576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260098152602001807f6e6f74206f776e6572000000000000000000000000000000000000000000000081525060200191505060405180910390fd5b6001600260008282540192505081905550565b60025481565b600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614610335576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260128152602001807f6e6f7420746865206e657874206f776e6572000000000000000000000000000081525060200191505060405180910390fd5b600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff166000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550600160006101000a81549073ffffffffffffffffffffffffffffffffffffffff02191690556000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff167f6622f943a4caea62449b0455b7d00a3b6828b83ae5db93398640b9ac1a9ab55d60405160405180910390a2565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614610509576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260098152602001807f6e6f74206f776e6572000000000000000000000000000000000000000000000081525060200191505060405180910390fd5b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff1614156105ac576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260198152602001807f4d75737420626520612076616c6964206e6577204f776e65720000000000000081525060200191505060405180910390fd5b80600160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055508073ffffffffffffffffffffffffffffffffffffffff167f677af8624951b93e02b839a7fac5a21b2dfcb05b31e5daaf3fdd5fc0bbd64a6560405160405180910390a25056fea265627a7a72315820d2a03ee60addaeb0adcdbd502cdf3e8b8b39e54d3323516c743aa8f26f8821b764736f6c634300050c0032",
+  "sourceMap": "58:176:11:-;;;129:28;8:9:-1;5:2;;;30:1;27;20:12;5:2;129:28:11;255:10:32;247:5;;:18;;;;;;;;;;;;;;;;;;58:176:11;;;;;;",
+  "deployedSourceMap": "58:176:11:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;58:176:11;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;163:68;;;:::i;:::-;;100:22;;;:::i;:::-;;;;;;;;;;;;;;;;;;;76:24:32;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;493:194;;;:::i;:::-;;50:20;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;279:208;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;279:208:32;;;;;;;;;;;;;;;;;;;:::i;:::-;;163:68:11;744:5:32;;;;;;;;;;;730:19;;:10;:19;;;722:41;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;223:1:11;212:7;;:12;;;;;;;;;;;163:68::o;100:22::-;;;;:::o;76:24:32:-;;;;;;;;;;;;;:::o;493:194::-;559:9;;;;;;;;;;;545:23;;:10;:23;;;537:54;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;609:9;;;;;;;;;;;601:5;;:17;;;;;;;;;;;;;;;;;;635:9;;628:16;;;;;;;;;;;674:5;;;;;;;;;;;659:21;;;;;;;;;;;;493:194::o;50:20::-;;;;;;;;;;;;;:::o;279:208::-;744:5;;;;;;;;;;;730:19;;:10;:19;;;722:41;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;375:1;354:23;;:9;:23;;;;346:61;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;429:9;417;;:21;;;;;;;;;;;;;;;;;;470:9;453:27;;;;;;;;;;;;279:208;:::o",
+  "source": "pragma solidity ^0.5.11;\n\nimport \"../utils/Ownable.sol\";\n\ncontract SimpleContract is Ownable {\n\n    uint256 public counter;\n\n    constructor() public {\n    }\n\n    function addCounter() public onlyOwner {\n        counter += 1;\n    }\n\n}\n",
+  "sourcePath": "/Users/logic/eth/interestfund/contracts/mocks/SimpleContract.sol",
+  "ast": {
+    "absolutePath": "/Users/logic/eth/interestfund/contracts/mocks/SimpleContract.sol",
+    "exportedSymbols": {
+      "SimpleContract": [
+        1341
+      ]
+    },
+    "id": 1342,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 1321,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".11"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:24:11"
+      },
+      {
+        "absolutePath": "/Users/logic/eth/interestfund/contracts/utils/Ownable.sol",
+        "file": "../utils/Ownable.sol",
+        "id": 1322,
+        "nodeType": "ImportDirective",
+        "scope": 1342,
+        "sourceUnit": 10641,
+        "src": "26:30:11",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "baseContracts": [
+          {
+            "arguments": null,
+            "baseName": {
+              "contractScope": null,
+              "id": 1323,
+              "name": "Ownable",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 10640,
+              "src": "85:7:11",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_Ownable_$10640",
+                "typeString": "contract Ownable"
+              }
+            },
+            "id": 1324,
+            "nodeType": "InheritanceSpecifier",
+            "src": "85:7:11"
+          }
+        ],
+        "contractDependencies": [
+          10640
+        ],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 1341,
+        "linearizedBaseContracts": [
+          1341,
+          10640
+        ],
+        "name": "SimpleContract",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "constant": false,
+            "id": 1326,
+            "name": "counter",
+            "nodeType": "VariableDeclaration",
+            "scope": 1341,
+            "src": "100:22:11",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
+            },
+            "typeName": {
+              "id": 1325,
+              "name": "uint256",
+              "nodeType": "ElementaryTypeName",
+              "src": "100:7:11",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 1329,
+              "nodeType": "Block",
+              "src": "150:7:11",
+              "statements": []
+            },
+            "documentation": null,
+            "id": 1330,
+            "implemented": true,
+            "kind": "constructor",
+            "modifiers": [],
+            "name": "",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 1327,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "140:2:11"
+            },
+            "returnParameters": {
+              "id": 1328,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "150:0:11"
+            },
+            "scope": 1341,
+            "src": "129:28:11",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 1339,
+              "nodeType": "Block",
+              "src": "202:29:11",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 1337,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "id": 1335,
+                      "name": "counter",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 1326,
+                      "src": "212:7:11",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "+=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "hexValue": "31",
+                      "id": 1336,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": true,
+                      "kind": "number",
+                      "lValueRequested": false,
+                      "nodeType": "Literal",
+                      "src": "223:1:11",
+                      "subdenomination": null,
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_rational_1_by_1",
+                        "typeString": "int_const 1"
+                      },
+                      "value": "1"
+                    },
+                    "src": "212:12:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "id": 1338,
+                  "nodeType": "ExpressionStatement",
+                  "src": "212:12:11"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 1340,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [
+              {
+                "arguments": null,
+                "id": 1333,
+                "modifierName": {
+                  "argumentTypes": null,
+                  "id": 1332,
+                  "name": "onlyOwner",
+                  "nodeType": "Identifier",
+                  "overloadedDeclarations": [],
+                  "referencedDeclaration": 10639,
+                  "src": "192:9:11",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_modifier$__$",
+                    "typeString": "modifier ()"
+                  }
+                },
+                "nodeType": "ModifierInvocation",
+                "src": "192:9:11"
+              }
+            ],
+            "name": "addCounter",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 1331,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "182:2:11"
+            },
+            "returnParameters": {
+              "id": 1334,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "202:0:11"
+            },
+            "scope": 1341,
+            "src": "163:68:11",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 1342,
+        "src": "58:176:11"
+      }
+    ],
+    "src": "0:235:11"
+  },
+  "legacyAST": {
+    "absolutePath": "/Users/logic/eth/interestfund/contracts/mocks/SimpleContract.sol",
+    "exportedSymbols": {
+      "SimpleContract": [
+        1341
+      ]
+    },
+    "id": 1342,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 1321,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".11"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:24:11"
+      },
+      {
+        "absolutePath": "/Users/logic/eth/interestfund/contracts/utils/Ownable.sol",
+        "file": "../utils/Ownable.sol",
+        "id": 1322,
+        "nodeType": "ImportDirective",
+        "scope": 1342,
+        "sourceUnit": 10641,
+        "src": "26:30:11",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "baseContracts": [
+          {
+            "arguments": null,
+            "baseName": {
+              "contractScope": null,
+              "id": 1323,
+              "name": "Ownable",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 10640,
+              "src": "85:7:11",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_Ownable_$10640",
+                "typeString": "contract Ownable"
+              }
+            },
+            "id": 1324,
+            "nodeType": "InheritanceSpecifier",
+            "src": "85:7:11"
+          }
+        ],
+        "contractDependencies": [
+          10640
+        ],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 1341,
+        "linearizedBaseContracts": [
+          1341,
+          10640
+        ],
+        "name": "SimpleContract",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "constant": false,
+            "id": 1326,
+            "name": "counter",
+            "nodeType": "VariableDeclaration",
+            "scope": 1341,
+            "src": "100:22:11",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
+            },
+            "typeName": {
+              "id": 1325,
+              "name": "uint256",
+              "nodeType": "ElementaryTypeName",
+              "src": "100:7:11",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 1329,
+              "nodeType": "Block",
+              "src": "150:7:11",
+              "statements": []
+            },
+            "documentation": null,
+            "id": 1330,
+            "implemented": true,
+            "kind": "constructor",
+            "modifiers": [],
+            "name": "",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 1327,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "140:2:11"
+            },
+            "returnParameters": {
+              "id": 1328,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "150:0:11"
+            },
+            "scope": 1341,
+            "src": "129:28:11",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 1339,
+              "nodeType": "Block",
+              "src": "202:29:11",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 1337,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "id": 1335,
+                      "name": "counter",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 1326,
+                      "src": "212:7:11",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "+=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "hexValue": "31",
+                      "id": 1336,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": true,
+                      "kind": "number",
+                      "lValueRequested": false,
+                      "nodeType": "Literal",
+                      "src": "223:1:11",
+                      "subdenomination": null,
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_rational_1_by_1",
+                        "typeString": "int_const 1"
+                      },
+                      "value": "1"
+                    },
+                    "src": "212:12:11",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "id": 1338,
+                  "nodeType": "ExpressionStatement",
+                  "src": "212:12:11"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 1340,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [
+              {
+                "arguments": null,
+                "id": 1333,
+                "modifierName": {
+                  "argumentTypes": null,
+                  "id": 1332,
+                  "name": "onlyOwner",
+                  "nodeType": "Identifier",
+                  "overloadedDeclarations": [],
+                  "referencedDeclaration": 10639,
+                  "src": "192:9:11",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_modifier$__$",
+                    "typeString": "modifier ()"
+                  }
+                },
+                "nodeType": "ModifierInvocation",
+                "src": "192:9:11"
+              }
+            ],
+            "name": "addCounter",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 1331,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "182:2:11"
+            },
+            "returnParameters": {
+              "id": 1334,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "202:0:11"
+            },
+            "scope": 1341,
+            "src": "163:68:11",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 1342,
+        "src": "58:176:11"
+      }
+    ],
+    "src": "0:235:11"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.12+commit.7709ece9.Emscripten.clang",
+    "optimizer": false,
+    "runs": 200
+  },
+  "networks": {},
+  "schemaVersion": "2.2.4",
+  "updatedAt": "2019-10-23T11:47:55.400Z"
+}

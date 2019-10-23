@@ -1,4 +1,4 @@
-daiToken resolverMock = require("../../build/Resolver.json");
+const resolverMock = require("../../build/Resolver.json");
 
 module.exports = {
 

@@ -63,14 +63,14 @@
     "absolutePath": "/Users/logic/eth/interestfund/contracts/mocks/compound/InterestRateModel.sol",
     "exportedSymbols": {
       "InterestRateModel": [
-        9372
+        9383
       ]
     },
-    "id": 9373,
+    "id": 9384,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 9353,
+        "id": 9364,
         "literals": [
           "solidity",
           "^",
@@ -78,7 +78,7 @@
           ".8"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:23:22"
+        "src": "0:23:23"
       },
       {
         "baseContracts": [],
@@ -86,9 +86,9 @@
         "contractKind": "interface",
         "documentation": "@title The Compound InterestRateModel Interface\n@author Compound\n@notice Any interest rate model should derive from this contract.\n@dev These functions are specifically not marked `pure` as implementations of this\n     contract may read from storage variables.",
         "fullyImplemented": false,
-        "id": 9372,
+        "id": 9383,
         "linearizedBaseContracts": [
-          9372
+          9383
         ],
         "name": "InterestRateModel",
         "nodeType": "ContractDefinition",
@@ -96,23 +96,23 @@
           {
             "body": null,
             "documentation": "@notice Gets the current borrow interest rate based on the given asset, total cash, total borrows\n        and total reserves.\n@dev The return value should be scaled by 1e18, thus a return value of\n     `(true, 1000000000000)` implies an interest rate of 0.000001 or 0.0001% *per block*.\n@param cash The total cash of the underlying asset in the CToken\n@param borrows The total borrows of the underlying asset in the CToken\n@param reserves The total reserves of the underlying asset in the CToken\n@return Success or failure and the borrow interest rate per block scaled by 10e18",
-            "id": 9366,
+            "id": 9377,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "getBorrowRate",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 9360,
+              "id": 9371,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 9355,
+                  "id": 9366,
                   "name": "cash",
                   "nodeType": "VariableDeclaration",
-                  "scope": 9366,
-                  "src": "1031:9:22",
+                  "scope": 9377,
+                  "src": "1031:9:23",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -120,10 +120,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 9354,
+                    "id": 9365,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1031:4:22",
+                    "src": "1031:4:23",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -134,11 +134,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 9357,
+                  "id": 9368,
                   "name": "borrows",
                   "nodeType": "VariableDeclaration",
-                  "scope": 9366,
-                  "src": "1042:12:22",
+                  "scope": 9377,
+                  "src": "1042:12:23",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -146,10 +146,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 9356,
+                    "id": 9367,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1042:4:22",
+                    "src": "1042:4:23",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -160,11 +160,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 9359,
+                  "id": 9370,
                   "name": "reserves",
                   "nodeType": "VariableDeclaration",
-                  "scope": 9366,
-                  "src": "1056:13:22",
+                  "scope": 9377,
+                  "src": "1056:13:23",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -172,10 +172,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 9358,
+                    "id": 9369,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1056:4:22",
+                    "src": "1056:4:23",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -185,19 +185,19 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1030:40:22"
+              "src": "1030:40:23"
             },
             "returnParameters": {
-              "id": 9365,
+              "id": 9376,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 9362,
+                  "id": 9373,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 9366,
-                  "src": "1094:4:22",
+                  "scope": 9377,
+                  "src": "1094:4:23",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -205,10 +205,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 9361,
+                    "id": 9372,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1094:4:22",
+                    "src": "1094:4:23",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -219,11 +219,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 9364,
+                  "id": 9375,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 9366,
-                  "src": "1100:4:22",
+                  "scope": 9377,
+                  "src": "1100:4:23",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -231,10 +231,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 9363,
+                    "id": 9374,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1100:4:22",
+                    "src": "1100:4:23",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -244,10 +244,10 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1093:12:22"
+              "src": "1093:12:23"
             },
-            "scope": 9372,
-            "src": "1008:98:22",
+            "scope": 9383,
+            "src": "1008:98:23",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "external"
@@ -255,29 +255,29 @@
           {
             "body": null,
             "documentation": "@notice Marker function used for light validation when updating the interest rate model of a market\n@dev Marker function used for light validation when updating the interest rate model of a market. Implementations should simply return true.\n@return Success or failure",
-            "id": 9371,
+            "id": 9382,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "isInterestRateModel",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 9367,
+              "id": 9378,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "1449:2:22"
+              "src": "1449:2:23"
             },
             "returnParameters": {
-              "id": 9370,
+              "id": 9381,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 9369,
+                  "id": 9380,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 9371,
-                  "src": "1475:4:22",
+                  "scope": 9382,
+                  "src": "1475:4:23",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -285,10 +285,10 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 9368,
+                    "id": 9379,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1475:4:22",
+                    "src": "1475:4:23",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -298,33 +298,33 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1474:6:22"
+              "src": "1474:6:23"
             },
-            "scope": 9372,
-            "src": "1421:60:22",
+            "scope": 9383,
+            "src": "1421:60:23",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "external"
           }
         ],
-        "scope": 9373,
-        "src": "315:1168:22"
+        "scope": 9384,
+        "src": "315:1168:23"
       }
     ],
-    "src": "0:1483:22"
+    "src": "0:1483:23"
   },
   "legacyAST": {
     "absolutePath": "/Users/logic/eth/interestfund/contracts/mocks/compound/InterestRateModel.sol",
     "exportedSymbols": {
       "InterestRateModel": [
-        9372
+        9383
       ]
     },
-    "id": 9373,
+    "id": 9384,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 9353,
+        "id": 9364,
         "literals": [
           "solidity",
           "^",
@@ -332,7 +332,7 @@
           ".8"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:23:22"
+        "src": "0:23:23"
       },
       {
         "baseContracts": [],
@@ -340,9 +340,9 @@
         "contractKind": "interface",
         "documentation": "@title The Compound InterestRateModel Interface\n@author Compound\n@notice Any interest rate model should derive from this contract.\n@dev These functions are specifically not marked `pure` as implementations of this\n     contract may read from storage variables.",
         "fullyImplemented": false,
-        "id": 9372,
+        "id": 9383,
         "linearizedBaseContracts": [
-          9372
+          9383
         ],
         "name": "InterestRateModel",
         "nodeType": "ContractDefinition",
@@ -350,23 +350,23 @@
           {
             "body": null,
             "documentation": "@notice Gets the current borrow interest rate based on the given asset, total cash, total borrows\n        and total reserves.\n@dev The return value should be scaled by 1e18, thus a return value of\n     `(true, 1000000000000)` implies an interest rate of 0.000001 or 0.0001% *per block*.\n@param cash The total cash of the underlying asset in the CToken\n@param borrows The total borrows of the underlying asset in the CToken\n@param reserves The total reserves of the underlying asset in the CToken\n@return Success or failure and the borrow interest rate per block scaled by 10e18",
-            "id": 9366,
+            "id": 9377,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "getBorrowRate",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 9360,
+              "id": 9371,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 9355,
+                  "id": 9366,
                   "name": "cash",
                   "nodeType": "VariableDeclaration",
-                  "scope": 9366,
-                  "src": "1031:9:22",
+                  "scope": 9377,
+                  "src": "1031:9:23",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -374,10 +374,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 9354,
+                    "id": 9365,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1031:4:22",
+                    "src": "1031:4:23",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -388,11 +388,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 9357,
+                  "id": 9368,
                   "name": "borrows",
                   "nodeType": "VariableDeclaration",
-                  "scope": 9366,
-                  "src": "1042:12:22",
+                  "scope": 9377,
+                  "src": "1042:12:23",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -400,10 +400,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 9356,
+                    "id": 9367,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1042:4:22",
+                    "src": "1042:4:23",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -414,11 +414,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 9359,
+                  "id": 9370,
                   "name": "reserves",
                   "nodeType": "VariableDeclaration",
-                  "scope": 9366,
-                  "src": "1056:13:22",
+                  "scope": 9377,
+                  "src": "1056:13:23",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -426,10 +426,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 9358,
+                    "id": 9369,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1056:4:22",
+                    "src": "1056:4:23",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -439,19 +439,19 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1030:40:22"
+              "src": "1030:40:23"
             },
             "returnParameters": {
-              "id": 9365,
+              "id": 9376,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 9362,
+                  "id": 9373,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 9366,
-                  "src": "1094:4:22",
+                  "scope": 9377,
+                  "src": "1094:4:23",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -459,10 +459,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 9361,
+                    "id": 9372,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1094:4:22",
+                    "src": "1094:4:23",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -473,11 +473,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 9364,
+                  "id": 9375,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 9366,
-                  "src": "1100:4:22",
+                  "scope": 9377,
+                  "src": "1100:4:23",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -485,10 +485,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 9363,
+                    "id": 9374,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1100:4:22",
+                    "src": "1100:4:23",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -498,10 +498,10 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1093:12:22"
+              "src": "1093:12:23"
             },
-            "scope": 9372,
-            "src": "1008:98:22",
+            "scope": 9383,
+            "src": "1008:98:23",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "external"
@@ -509,29 +509,29 @@
           {
             "body": null,
             "documentation": "@notice Marker function used for light validation when updating the interest rate model of a market\n@dev Marker function used for light validation when updating the interest rate model of a market. Implementations should simply return true.\n@return Success or failure",
-            "id": 9371,
+            "id": 9382,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "isInterestRateModel",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 9367,
+              "id": 9378,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "1449:2:22"
+              "src": "1449:2:23"
             },
             "returnParameters": {
-              "id": 9370,
+              "id": 9381,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 9369,
+                  "id": 9380,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 9371,
-                  "src": "1475:4:22",
+                  "scope": 9382,
+                  "src": "1475:4:23",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -539,10 +539,10 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 9368,
+                    "id": 9379,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1475:4:22",
+                    "src": "1475:4:23",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -552,20 +552,20 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1474:6:22"
+              "src": "1474:6:23"
             },
-            "scope": 9372,
-            "src": "1421:60:22",
+            "scope": 9383,
+            "src": "1421:60:23",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "external"
           }
         ],
-        "scope": 9373,
-        "src": "315:1168:22"
+        "scope": 9384,
+        "src": "315:1168:23"
       }
     ],
-    "src": "0:1483:22"
+    "src": "0:1483:23"
   },
   "compiler": {
     "name": "solc",
@@ -575,5 +575,5 @@
   },
   "networks": {},
   "schemaVersion": "2.2.4",
-  "updatedAt": "2019-10-22T21:23:05.332Z"
+  "updatedAt": "2019-10-23T11:47:55.399Z"
 }
