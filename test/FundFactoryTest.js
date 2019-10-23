@@ -54,8 +54,7 @@ describe('Fund Factory Contract Test', () => {
     it('should create a new Fund', async() => {
         let tx = await factory.newFunding("Funding");
         let result = await factory.verboseWaitForTransaction(tx, 'creating new fund');
-
-        assert.strictEqual(result.events[0].event, "NewFunding");
+        assert.strictEqual(result.events[2].event, "NewFunding");
     });
 
 });

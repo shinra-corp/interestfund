@@ -44,7 +44,7 @@ contract FundFactory is Ownable {
         isFund[address(_fund)] = true;
 
         //set subdomain name and resolver
-//        controller.newSubDomain(_URI, address(_fund), msg.sender);
+        controller.newSubDomain(_URI, address(_fund), msg.sender);
         emit NewFunding(msg.sender, address(_fund));
     }
 }
