@@ -6,7 +6,7 @@ interface ICToken {
 
     function redeemUnderlying(uint redeemamount) external returns (uint);
 
- //   function balanceOf(address account) external returns (uint);
+    function balanceOf(address account) external returns (uint);
 
     function balanceOfUnderlying(address account) external returns (uint);
 
@@ -14,17 +14,11 @@ interface ICToken {
 
     function getCash() external returns (uint);
 
-//    function totalSupply() external returns (uint);
+    function totalSupply() external returns (uint);
 
     function supplyRatePerBlock() external returns (uint);
 
-    function totalReserves() external returns (uint);
-
-    function reserveFactorMantissa() external returns (uint);
-
     function mint(uint256 amount) external returns(uint);
-
-    function mint() external payable returns(uint);
 
 
 }

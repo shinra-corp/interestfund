@@ -19,6 +19,7 @@ contract DomainController is Ownable {
 
     event AskerChange(address indexed newAsker);
     event NewSubDomain(address indexed manager, string label);
+    event DomainReclaim(address indexed newOwner);
 
     mapping(bytes32 => bool) public register;
 
@@ -43,7 +44,7 @@ contract DomainController is Ownable {
         ens.setSubnodeOwner(rootNode, _label, endpoint);
 
         //set resolver of subdomain
-//        resolver.setAddr(_node, endpoint);
+        resolver.setAddr(_node, endpoint);
 
         emit NewSubDomain(manager, label);
     }
@@ -52,6 +53,7 @@ contract DomainController is Ownable {
     //@notice get rootNode ownership back.
     function transferDomain() public onlyOwner {
         ens.setOwner(rootNode, msg.sender);
+        emit DomainReclaim(msg.sender);
     }
     //@notice change contract that can ask a new subdomain
     //@param _newAsker new contract that can ask for new subdomains.
@@ -67,5 +69,4 @@ contract DomainController is Ownable {
         require(msg.sender == asker, 'not contract call');
         _;
     }
-
 }

@@ -1,79 +1,102 @@
-pragma solidity ^0.5.11;
+pragma solidity ^0.5.12;
 
-import "@openzeppelin/contracts/math/SafeMath.sol";
 
+import "./utils/SafeMath.sol";
 import "./utils/ReentrancyGuard.sol";
-import "./interfaces/IResolver.sol";
-import "./Dispatcher.sol";
+import "./interfaces/IERC20.sol";
+import "./interfaces/ICToken.sol";
 
 contract Fund is ReentrancyGuard {
 
     using SafeMath for uint256;
 
-    event StartFunding(address indexed donor, address indexed token, uint256 amount);
-    event Withdraw(address indexed donor, address indexed token, uint256 amount);
-    event TopFunding(address indexed donor, address indexed token, uint256 amount);
+    event StartFunding(address indexed donor, uint256 amount);
+    event Withdraw(address indexed donor, uint256 amount);
+    event TopFunding(address indexed donor, uint256 amount);
 
-    address public manager;
-    IResolver public resolver;
-    Dispatcher public dispatcher;
     string public URI;
+    address public manager;
 
-    mapping(address => uint256) public totalBalances;
+    uint256 public totalBalances;
     uint256 public numberDonors;
+    uint256 public numberActiveDonors;
 
-    mapping(address => mapping(address => uint256)) public userBalances;
+    ICToken public compoundToken;
+    IERC20 public daiToken;
+
+    mapping(address => uint256) public userBalances;
     mapping(address => bool) public isDonor;
 
-    constructor(address _manager, address _resolver, string memory _URI) public {
+    constructor(
+        address _manager,
+        string memory _URI,
+        address _compoundToken,
+        address _daiToken
+    )
+    public
+    {
         require(_manager != address(0), "Error: manager not valid");
-        require(_resolver != address(0), "Error: resolver not valid");
-
         manager = _manager;
-        resolver = IResolver(_resolver);
         URI = _URI;
+        compoundToken = ICToken(_compoundToken);
+        daiToken = IERC20(_daiToken);
     }
 
 
-    function funding(address _token, uint256 _amount) public payable nonReentrant {
-        require(msg.value == 0 || msg.value == _amount, "Error: define amount");
-        address _endpoint = resolver.resolveToken(_token);
-        require(_endpoint != address(0), 'Error: Compound endpoint not register');
+    function funding(uint256 _amount) public nonReentrant {
 
-        Dispatcher.openFunding(msg.sender, _token, _endpoint, _amount);
-        isDonor[msg.sender] = true;
-        totalBalances[_token] = totalBalances[_token].add(_amount);
-        userBalances[msg.sender][_token] = userBalances[msg.sender][_token].add(_amount);
-        numberDonors = numberDonors.add(1);
+        require(_amount != 0, "Error: define amount");
 
-        emit StartFunding(msg.sender, _token, _amount);
+        _openFunding(msg.sender, _amount);
+
+        totalBalances = totalBalances.add(_amount);
+        userBalances[msg.sender] = userBalances[msg.sender].add(_amount);
+
+        if(isDonor[msg.sender]) {
+            emit TopFunding(msg.sender, _amount);
+        } else {
+            isDonor[msg.sender] = true;
+            numberDonors = numberDonors.add(1);
+            numberActiveDonors = numberActiveDonors.add(1);
+            emit StartFunding(msg.sender, _amount);
+        }
+
     }
 
 
-    function withdraw(address _token, uint256 _amount) public nonReentrant {
-        require(userBalances[msg.sender][_token] > _amount, 'Error: not enough balance');
-        userBalances[msg.sender][_token] = userBalances[msg.sender][_token].sub(_amount);
+    function withdraw(uint256 _amount) public nonReentrant {
 
-        address _endpoint = resolver.resolveToken(_token);
-        require(_endpoint != address(0), 'Error: Compound endpoint not register');
-        //if ether, transfer to sender, else approve token to be withdraw
-        Dispatcher.withdraw(msg.sender, _token, _endpoint,_amount);
+        require(userBalances[msg.sender] > _amount, 'Error: not enough balance');
 
-        emit Withdraw(msg.sender, _token, _amount);
+        userBalances[msg.sender] = userBalances[msg.sender].sub(_amount);
+
+        if(userBalances[msg.sender] == 0) {
+            isDonor[msg.sender] = false;
+            numberActiveDonors = numberActiveDonors.sub(1);
+        }
+
+        _withdraw(msg.sender,_amount);
+
+        emit Withdraw(msg.sender, _amount);
     }
 
 
-    function withdrawInterest(address _token, uint256 _amount) public onlyManager nonReentrant {
+    function withdrawInterest(uint256 _amount) public onlyManager nonReentrant {
+        //get compound balance
+        uint cbalance = compoundToken.balanceOf(address(this));
+
+        require(cbalance.sub(totalBalances) >= _amount, 'Error: not enough balance');
+        _withdraw(msg.sender, _amount);
+
+        emit Withdraw(msg.sender, _amount);
+    }
+
+    function accruedInterest() public returns(uint256) {
     }
 
 
-    function donations(address _token) public view returns(uint256) {
-        return totalBalances[_token];
-    }
-
-
-    function balanceOf(address _token, address _donor) public view returns(uint256) {
-        return userBalances[_donor][_token];
+    function balanceOf(address _donor) public view returns(uint256) {
+        return userBalances[_donor];
     }
 
 
@@ -81,6 +104,24 @@ contract Fund is ReentrancyGuard {
         revert("Error: call method directly");
     }
 
+    function _openFunding(address _sender, uint256 _amount) internal {
+
+            //get tokens from user to Fund account
+            require(daiToken.transferFrom(_sender, address(this), _amount), 'Error transfer tokens');
+            //approve compound contract to withdraw tokens
+            require(daiToken.approve(address(compoundToken), _amount), 'failed to approve token');
+            //ask to mint new compound tokens
+            require(compoundToken.mint(_amount) == 0, 'failed to mint ctokens');
+    }
+
+
+    function _withdraw(address _sender, uint256 _amount) internal {
+
+            //get tokens back from compound
+            require(compoundToken.redeem(_amount) == 0, "Error: compound reddem");
+            //approve users to withdraw dai token
+            require(daiToken.approve(_sender, _amount) == true, "Error: Token Approve");
+    }
 
     modifier onlyManager {
         require(msg.sender == manager, 'Error: not manager');

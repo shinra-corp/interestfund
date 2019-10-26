@@ -13,20 +13,35 @@ interface IDomainController {
 
 contract FundFactory is Ownable {
 
-    event NewFunding(address indexed manager, address indexed at);
-    event DomainControllerChange(address indexed old, address indexed _new);
+    event NewFunding(address indexed _manager, address indexed _at);
+    event DomainControllerChange(address indexed _old, address indexed _new);
+    event DAIChange(address indexed _old, address indexed _new);
+    event CompoundTokenChange(address indexed _old, address indexed _new);
 
-    address public resolver;
-    address public dispatcher;
     IDomainController public controller;
+    address public daiToken;
+    address public compoundToken;
 
     address[] public funds;
     mapping(address => bool) isFund;
 
 
-    constructor(address _tokenResolver) public {
-        require(_tokenResolver != address(0), 'Error: Resolver invalid');
-        resolver = _tokenResolver;
+    constructor(address _daiToken, address _compoundToken) public {
+        require(_daiToken != address(0), 'Error: DAI Address invalid');
+        require(_compoundToken != address(0), 'Error: Compound Token invalid');
+
+        daiToken = _daiToken;
+        compoundToken = _compoundToken;
+    }
+
+    function newFunding(string memory _URI) public {
+        Fund _fund = new Fund(msg.sender, _URI, daiToken, compoundToken);
+        funds.push(address(_fund));
+        isFund[address(_fund)] = true;
+
+        //set subdomain name and resolve endpoint
+        controller.newSubDomain(_URI, address(_fund), msg.sender);
+        emit NewFunding(msg.sender, address(_fund));
     }
 
 
@@ -37,14 +52,17 @@ contract FundFactory is Ownable {
         controller = IDomainController(_controller);
     }
 
+    function setDAIToken(address _newDaiToken) public onlyOwner {
+        require(_newDaiToken != address(0), 'Error: DAI Address invalid');
 
-    function newFunding(string memory _URI) public {
-        Fund _fund = new Fund(msg.sender, address(resolver), _URI);
-        funds.push(address(_fund));
-        isFund[address(_fund)] = true;
+        emit DAIChange(daiToken, _newDaiToken);
+        daiToken = _newDaiToken;
+    }
 
-        //set subdomain name and resolver
-        controller.newSubDomain(_URI, address(_fund), msg.sender);
-        emit NewFunding(msg.sender, address(_fund));
+    function setCompoundToken(address _newCompoundToken) public onlyOwner {
+        require(_newCompoundToken != address(0), 'Error: Compound Token invalid');
+
+        emit CompoundTokenChange(compoundToken, _newCompoundToken);
+        compoundToken = _newCompoundToken;
     }
 }
