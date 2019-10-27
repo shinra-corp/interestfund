@@ -118,7 +118,7 @@ contract Fund is ReentrancyGuard {
     function _withdraw(address _sender, uint256 _amount) internal {
 
             //get tokens back from compound
-            require(compoundToken.redeem(_amount) == 0, "Error: compound reddem");
+            require(compoundToken.redeemUnderlying(_amount) == 0, "Error: compound reddem");
             //approve users to withdraw dai token
             require(daiToken.approve(_sender, _amount) == true, "Error: Token Approve");
     }

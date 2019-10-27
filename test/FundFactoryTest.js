@@ -3,31 +3,29 @@ const ENS = require("../build/ENSMock");
 const etherlime = require('etherlime-lib');
 const FundFactory = require("../build/FundFactory.json");
 const Fund = require("../build/Fund.json");
-const Dispatcher = require("../build/Dispatcher.json");
-const TokenResolver = require("../build/Resolver.json");
 const DomainController = require("../build/DomainController.json");
+const DAI = require("../build/ERC20Mock.json");
+const Compound = require("../build/CErc20.json");
 const utils = require("./utils/utils.js");
 const rootNode = utils.namehash("interestfund.eth");
 
 describe('Fund Factory Contract Test', () => {
 
     let Owner = accounts[0];
-    let deployer;
-    let factory;
-    let dispatcherLib;
-    let ensMock;
-    let controller;
-    let resolver;
+    let deployer, factory, ensMock, controller, dai, ctoken;
 
     before(async () => {
         deployer = new etherlime.EtherlimeGanacheDeployer(Owner.secretKey);
 
-        dispatcherLib = await deployer.deploy(Dispatcher);
-        resolver = await utils.ResolverMock(deployer, accounts);
+        //infrastructure contracts
+        dai = await deployer.deploy(DAI, {}, Owner.signer.address, 10000);
+        ctoken = await deployer.deploy(Compound, {}, dai.contractAddress, 100);
+
         factory = await deployer.deploy(
             FundFactory,
-            { Dispatcher:dispatcherLib.contractAddress },
-            resolver.contractAddress
+            {},
+            dai.contractAddress,
+            ctoken.contractAddress
         );
 
         ensMock = await deployer.deploy(ENS, {}, rootNode, deployer.signer.address);
@@ -43,7 +41,6 @@ describe('Fund Factory Contract Test', () => {
 
         await ensMock.setOwner(rootNode, controller.contractAddress);
         await factory.setDomainController(controller.contractAddress);
-
     });
 
     it('should have a valid configuration', async () => {
@@ -56,12 +53,12 @@ describe('Fund Factory Contract Test', () => {
     it('should create a new Fund', async() => {
         let tx = await factory.newFunding("Funding");
         let result = await factory.verboseWaitForTransaction(tx, 'creating new fund');
-        //console.log(result.events[2].args.at);
+
         assert.strictEqual(result.events[2].event, "NewFunding");
 
-        let deployFund = await etherlime.ContractAt(Fund, result.events[2].args.at)
-
+        let deployFund = await etherlime.ContractAt(Fund, result.events[2].args._at)
         let manager = await deployFund.manager();
+
         assert.strictEqual(manager, Owner.signer.address);
     });
 

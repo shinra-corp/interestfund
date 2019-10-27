@@ -1,11 +1,9 @@
-const { parseEther, formatBytes32String, bigNumberify } = require('ethers').utils;
+/*const { parseEther, formatBytes32String, bigNumberify } = require('ethers').utils;
 
 const etherlime = require('etherlime-lib');
 const ENSMock = require("../build/ENSMock.json");
 const FundFactory = require("../build/FundFactory.json");
 const Fund = require("../build/Fund.json");
-const Dispatcher = require("../build/Dispatcher.json");
-const TokenResolver = require("../build/Resolver.json");
 const DomainController = require("../build/DomainController.json");
 const utils = require("./utils/utils.js");
 const rootNode = utils.namehash("interestfund.eth");
@@ -81,3 +79,5 @@ describe('Fund Contract Test', () => {
         console.log("hello");
     });
 });
+
+*/

@@ -44,7 +44,7 @@ contract DomainController is Ownable {
         ens.setSubnodeOwner(rootNode, _label, endpoint);
 
         //set resolver of subdomain
-        resolver.setAddr(_node, endpoint);
+//        resolver.setAddr(_node, endpoint);
 
         emit NewSubDomain(manager, label);
     }
@@ -55,6 +55,8 @@ contract DomainController is Ownable {
         ens.setOwner(rootNode, msg.sender);
         emit DomainReclaim(msg.sender);
     }
+
+
     //@notice change contract that can ask a new subdomain
     //@param _newAsker new contract that can ask for new subdomains.
     function changeAsker(address _newAsker) public onlyOwner {

@@ -1,4 +1,4 @@
-pragma solidity ^0.5.11;
+pragma solidity ^0.5.12;
 
 import "./Fund.sol";
 import "./utils/Ownable.sol";
@@ -24,7 +24,6 @@ contract FundFactory is Ownable {
 
     address[] public funds;
     mapping(address => bool) isFund;
-
 
     constructor(address _daiToken, address _compoundToken) public {
         require(_daiToken != address(0), 'Error: DAI Address invalid');
