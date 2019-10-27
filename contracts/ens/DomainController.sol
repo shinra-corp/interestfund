@@ -44,7 +44,7 @@ contract DomainController is Ownable {
         ens.setSubnodeOwner(rootNode, _label, endpoint);
 
         //set resolver of subdomain
-//        resolver.setAddr(_node, endpoint);
+        resolver.setAddr(_node, endpoint);
 
         emit NewSubDomain(manager, label);
     }

@@ -4,6 +4,7 @@ const etherlime = require('etherlime-lib');
 const FundFactory = require("../build/FundFactory.json");
 const Fund = require("../build/Fund.json");
 const DomainController = require("../build/DomainController.json");
+const Resolver = require("../build/ENSResolverMock.json");
 const DAI = require("../build/ERC20Mock.json");
 const Compound = require("../build/CErc20.json");
 const utils = require("./utils/utils.js");
@@ -12,7 +13,7 @@ const rootNode = utils.namehash("interestfund.eth");
 describe('Fund Factory Contract Test', () => {
 
     let Owner = accounts[0];
-    let deployer, factory, ensMock, controller, dai, ctoken;
+    let deployer, factory, resolver,ensMock, controller, dai, ctoken;
 
     before(async () => {
         deployer = new etherlime.EtherlimeGanacheDeployer(Owner.secretKey);
@@ -20,6 +21,8 @@ describe('Fund Factory Contract Test', () => {
         //infrastructure contracts
         dai = await deployer.deploy(DAI, {}, Owner.signer.address, 10000);
         ctoken = await deployer.deploy(Compound, {}, dai.contractAddress, 100);
+        resolver = await deployer.deploy(Resolver, {});
+
 
         factory = await deployer.deploy(
             FundFactory,
@@ -36,7 +39,7 @@ describe('Fund Factory Contract Test', () => {
             rootNode,
             factory.contractAddress,
             ensMock.contractAddress,
-            ensMock.contractAddress
+            resolver.contractAddress
         );
 
         await ensMock.setOwner(rootNode, controller.contractAddress);
