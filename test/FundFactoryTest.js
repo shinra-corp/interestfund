@@ -56,7 +56,6 @@ describe('Fund Factory Contract Test', () => {
 
         let fundingName = "funding";
         let URL = utils.namehash(fundingName + '.' + 'interestfund.eth');
-        let rootCalc = utils.namehash('funding.interestfund.eth');
 
         let tx = await factory.newFunding(fundingName);
         let result = await factory.verboseWaitForTransaction(tx, 'creating new fund');
@@ -78,4 +77,17 @@ describe('Fund Factory Contract Test', () => {
         let result = await factory.verboseWaitForTransaction(tx, 'change Domain controller');
         assert.strictEqual(result.events[0].event, 'DomainControllerChange');
     });
+
+    it('should emit DAI Change', async () => {
+        let tx = await factory.setDAIToken(Owner.signer.address);
+        let result = await factory.verboseWaitForTransaction(tx, 'change dai token address');
+        assert.strictEqual(result.events[0].event, 'DAITokenChange');
+    });
+
+    it('should emit Compound Change', async () => {
+        let tx = await factory.setCompoundToken(Owner.signer.address);
+        let result = await factory.verboseWaitForTransaction(tx, 'change compound token address');
+        assert.strictEqual(result.events[0].event, 'CompoundTokenChange');
+    });
+
 });

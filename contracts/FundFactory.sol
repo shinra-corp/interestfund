@@ -8,16 +8,13 @@ interface IDomainController {
     function newSubDomain(string calldata label, address endpoint, address manager) external;
     function transferDomain() external;
     function changeAsker(address _newAsker) external;
-    function calcDomain(string calldata label) external view returns(bytes32);
-
-
 }
 
 contract FundFactory is Ownable {
 
     event NewFunding(address indexed _manager, address indexed _at);
     event DomainControllerChange(address indexed _old, address indexed _new);
-    event DAIChange(address indexed _old, address indexed _new);
+    event DAITokenChange(address indexed _old, address indexed _new);
     event CompoundTokenChange(address indexed _old, address indexed _new);
 
     IDomainController public controller;
@@ -35,9 +32,6 @@ contract FundFactory is Ownable {
         compoundToken = _compoundToken;
     }
 
-    function test(string memory _URI) public view returns(bytes32) {
-        return controller.calcDomain(_URI);
-    }
 
     function newFunding(string memory _URI) public {
         Fund _fund = new Fund(msg.sender, _URI, daiToken, compoundToken);
@@ -60,7 +54,7 @@ contract FundFactory is Ownable {
     function setDAIToken(address _newDaiToken) public onlyOwner {
         require(_newDaiToken != address(0), 'Error: DAI Address invalid');
 
-        emit DAIChange(daiToken, _newDaiToken);
+        emit DAITokenChange(daiToken, _newDaiToken);
         daiToken = _newDaiToken;
     }
 

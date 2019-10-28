@@ -31,13 +31,6 @@ contract DomainController is Ownable {
     }
 
 
-    function calcDomain(string calldata label) external view returns(bytes32) {
-        bytes32 _label = keccak256(abi.encodePacked(label));
-        bytes32 _node = keccak256(abi.encodePacked(rootNode, _label));
-        return _node;
-    }
-
-
     //@notice Submit to ENS a new subdomain of rootNode.
     //@param label name of the subdomain.
     //@param endpoint address that resolver will point.
