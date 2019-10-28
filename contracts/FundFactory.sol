@@ -8,6 +8,8 @@ interface IDomainController {
     function newSubDomain(string calldata label, address endpoint, address manager) external;
     function transferDomain() external;
     function changeAsker(address _newAsker) external;
+    function calcDomain(string calldata label) external view returns(bytes32);
+
 
 }
 
@@ -31,6 +33,10 @@ contract FundFactory is Ownable {
 
         daiToken = _daiToken;
         compoundToken = _compoundToken;
+    }
+
+    function test(string memory _URI) public view returns(bytes32) {
+        return controller.calcDomain(_URI);
     }
 
     function newFunding(string memory _URI) public {

@@ -1,6 +1,6 @@
 pragma solidity ^0.5.12;
 
-import "../ens/ENS.sol";
+import "../../ens/ENS.sol";
 
 /**
  * ENS registry test contract.
