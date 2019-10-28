@@ -11,6 +11,7 @@ const utils = require("./utils/utils.js");
 const rootNode = utils.namehash("interestfund.eth");
 const URI = "funding";
 
+const supplyRate = utils.convert('0.0002').toString();
 
 describe('Fund Contract Test', () => {
 
@@ -27,13 +28,13 @@ describe('Fund Contract Test', () => {
 
         //infrastructure contracts
         dai = await deployer.deploy(DAI, {}, Owner.signer.address, 10000);
-        ctoken = await deployer.deploy(Compound, {}, dai.contractAddress, 1);
+        ctoken = await deployer.deploy(Compound, {}, dai.contractAddress, supplyRate);
         resolver = await deployer.deploy(Resolver, {});
 
         //give dai tokens to donors
-        await dai.mint(donor1.signer.address, 1000);
-        await dai.mint(donor2.signer.address, 1000);
-        await dai.mint(donor3.signer.address, 1000);
+        await dai.mint(donor1.signer.address, utils.convert("1.0"));
+        await dai.mint(donor2.signer.address, utils.convert("1.0"));
+        await dai.mint(donor3.signer.address, utils.convert("1.0"));
 
         factory = await deployer.deploy(
             FundFactory,
@@ -69,46 +70,43 @@ describe('Fund Contract Test', () => {
     });
 
     it('should maintain correct funding', async () => {
-        await dai.from(donor1.signer.address).approve(fund.contractAddress, 500);
-        await dai.from(donor2.signer.address).approve(fund.contractAddress, 500);
-        await dai.from(donor3.signer.address).approve(fund.contractAddress, 500);
+        await dai.from(donor1.signer.address).approve(fund.contractAddress, utils.convert("0.05").toString());
+        await dai.from(donor2.signer.address).approve(fund.contractAddress, utils.convert("0.05").toString());
+        await dai.from(donor3.signer.address).approve(fund.contractAddress, utils.convert("0.05").toString());
 
-        await fund.from(donor1.signer.address).funding(500);
-        await fund.from(donor2.signer.address).funding(250);
-        await fund.from(donor3.signer.address).funding(50);
+        await fund.from(donor1.signer.address).funding(utils.convert("0.05").toString());
+        await fund.from(donor2.signer.address).funding(utils.convert("0.004").toString());
+        await fund.from(donor3.signer.address).funding(utils.convert("0.001").toString());
 
         //Balances should be equals to funds
         let balanceFund = await fund.totalBalances();
+        //let fake_interest = balanceFund * supplyRate;
+
+        //console.log(fake_interest);
+        //console.log(utils.convert("0.05"));
         let balanceCompound = await ctoken.balanceOf(fund.contractAddress);
+        //should have balance + interest
+        assert.ok(balanceFund.eq(balanceCompound), 'Balance Compound Token should sum up');
 
-        assert.equal(balanceFund.toNumber(), balanceCompound.toNumber(), 'Balance should sum up');
-
-        await fund.from(donor1.signer.address).withdraw(250);
+        await fund.from(donor1.signer.address).withdraw(utils.convert("0.025"));
 
         let donor1Balance = await fund.balanceOf(donor1.signer.address);
-
-        assert.equal(250, donor1Balance.toNumber(), 'eating user funds');
+        assert.ok(utils.convert("0.025").eq(donor1Balance), 'eating user funds');
 
         let balanceFundAfterWithdraw = await fund.totalBalances();
         let balanceCompoundAfterWithdraw = await ctoken.balanceOf(fund.contractAddress);
 
-        assert.equal(balanceFundAfterWithdraw.toNumber(), balanceCompoundAfterWithdraw.toNumber(), 'Balance should sum up')
-        assert.equal(550, balanceFundAfterWithdraw.toNumber(), 'Balance incorrect');
+        assert.ok(balanceFundAfterWithdraw.eq(balanceCompoundAfterWithdraw), 'Balance Compound after withdraw should sum up')
 
         //withdraw all balances
-        await fund.from(donor1.signer.address).withdraw(250);
-        await fund.from(donor2.signer.address).withdraw(250);
-        await fund.from(donor3.signer.address).withdraw(50);
+        await fund.from(donor1.signer.address).withdraw(utils.convert("0.025").toString());
+        await fund.from(donor2.signer.address).withdraw(utils.convert("0.004").toString());
+        await fund.from(donor3.signer.address).withdraw(utils.convert("0.001").toString());
 
         let finalBalance1 = await fund.balanceOf(donor1.signer.address);
         let finalBalance2 = await fund.balanceOf(donor2.signer.address);
         let finalBalance3 = await fund.balanceOf(donor3.signer.address);
 
         assert.equal(finalBalance1.toNumber() + finalBalance2.toNumber() + finalBalance3.toNumber(),  0, 'Final Balances Users incrrect');
-
-        //should have only interest or zero
-        let finalFundBalance = await ctoken.balanceOf(fund.contractAddress);
-
-        assert.equal(0, finalFundBalance.toNumber(), 'should have no ctoken');
     });
 });

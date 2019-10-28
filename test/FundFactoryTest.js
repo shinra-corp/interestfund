@@ -10,6 +10,7 @@ const Compound = require("../build/CErc20.json");
 const utils = require("./utils/utils.js");
 const rootNode = utils.namehash("interestfund.eth");
 
+
 describe('Fund Factory Contract Test', () => {
 
     let Owner = accounts[0];

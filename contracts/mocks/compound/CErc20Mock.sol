@@ -32,15 +32,13 @@ contract CErc20 is ICToken {
     }
 
     function balanceOf(address account) external view returns (uint) {
-        return balance[account] * _supplyRateBlock;
+        return balance[account];
     }
 
     function balanceOfUnderlying(address account) external view returns (uint) {
-        return _underlyingToken.balanceOf(account);
+        return _underlyingToken.balanceOf(account).add(_supplyRateBlock);
     }
 
-    function exchangeRateCurrent() external returns (uint) {
-    }
 
     function getCash() external returns (uint) {
         return _underlyingToken.balanceOf(address(this));
