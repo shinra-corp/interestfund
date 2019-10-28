@@ -31,11 +31,11 @@ contract CErc20 is ICToken {
         require(_underlyingToken.transfer(msg.sender, redeemamount), 'Error: Unable to transfer tokens');
     }
 
-    function balanceOf(address account) external returns (uint) {
-        return balance[account];
+    function balanceOf(address account) external view returns (uint) {
+        return balance[account] * _supplyRateBlock;
     }
 
-    function balanceOfUnderlying(address account) external returns (uint) {
+    function balanceOfUnderlying(address account) external view returns (uint) {
         return _underlyingToken.balanceOf(account);
     }
 

@@ -34,7 +34,7 @@ contract FundFactory is Ownable {
 
 
     function newFunding(string memory _URI) public {
-        Fund _fund = new Fund(msg.sender, _URI, daiToken, compoundToken);
+        Fund _fund = new Fund(msg.sender, daiToken, compoundToken);
         funds.push(address(_fund));
         isFund[address(_fund)] = true;
 

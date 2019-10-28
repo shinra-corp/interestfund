@@ -5,9 +5,9 @@ interface ICToken {
 
     function redeemUnderlying(uint redeemamount) external returns (uint);
 
-    function balanceOf(address account) external returns (uint);
+    function balanceOf(address account) external view returns (uint);
 
-    function balanceOfUnderlying(address account) external returns (uint);
+    function balanceOfUnderlying(address account) external view returns (uint);
 
     function getCash() external returns (uint);
 

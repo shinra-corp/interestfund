@@ -1,83 +1,114 @@
-/*const { parseEther, formatBytes32String, bigNumberify } = require('ethers').utils;
+const ENS = require("../build/ENSMock");
 
 const etherlime = require('etherlime-lib');
-const ENSMock = require("../build/ENSMock.json");
 const FundFactory = require("../build/FundFactory.json");
 const Fund = require("../build/Fund.json");
 const DomainController = require("../build/DomainController.json");
+const Resolver = require("../build/ENSResolverMock.json");
+const DAI = require("../build/ERC20Mock.json");
+const Compound = require("../build/CErc20.json");
 const utils = require("./utils/utils.js");
 const rootNode = utils.namehash("interestfund.eth");
+const URI = "funding";
 
-// compound - infrastructure
-const Unitroller = require("../build/Unitroller.json");
-const PriceOracle = require("../build/SimplePriceOracle.json");
-const PriceOracleProxy = require("../build/PriceOracleProxy.json");
-const Comptroller = require("../build/Comptroller.json");
-const InterestModel = require("../build/WhitePaperInterestRateModel.json");
-const CEther = require("../build/CEther.json");
-const CErc20 = require("../build/CErc20.json");
-
-const WAD = bigNumberify('1000000000000000000') // 10**18
-const ETH_EXCHANGE_RATE = bigNumberify('200000000000000000000000000');
 
 describe('Fund Contract Test', () => {
 
-    const defaultConfigs = {
-        gasprice: 20000000000, // 20 gwei
-        gaslimit: 6000000
-    }
-
     let Owner = accounts[0];
-    let deployer, factory, dispatcherLib, ENS, controller, resolver;
+
+    let donor1 = accounts[1];
+    let donor2 = accounts[2];
+    let donor3 = accounts[3];
+
+    let deployer, factory, fund, resolver,ensMock, controller, dai, ctoken;
 
     before(async () => {
+        deployer = new etherlime.EtherlimeGanacheDeployer(Owner.secretKey);
 
-        deployer = new etherlime.EtherlimeGanacheDeployer(Owner.secretKey, 8545, defaultConfigs);
+        //infrastructure contracts
+        dai = await deployer.deploy(DAI, {}, Owner.signer.address, 10000);
+        ctoken = await deployer.deploy(Compound, {}, dai.contractAddress, 1);
+        resolver = await deployer.deploy(Resolver, {});
 
-        dispatcherLib = await deployer.deploy(Dispatcher);
-        resolver = await utils.ResolverMock(deployer, accounts);
+        //give dai tokens to donors
+        await dai.mint(donor1.signer.address, 1000);
+        await dai.mint(donor2.signer.address, 1000);
+        await dai.mint(donor3.signer.address, 1000);
 
         factory = await deployer.deploy(
             FundFactory,
-            { Dispatcher: dispatcherLib.contractAddress },
-            resolver.contractAddress
+            {},
+            dai.contractAddress,
+            ctoken.contractAddress
         );
 
-        ENS = await deployer.deploy(ENSMock, {}, rootNode, deployer.signer.address);
+        ensMock = await deployer.deploy(ENS, {}, rootNode, deployer.signer.address);
 
         controller = await deployer.deploy(
             DomainController,
             {},
             rootNode,
             factory.contractAddress,
-            ENS.contractAddress,
-            ENS.contractAddress
+            ensMock.contractAddress,
+            resolver.contractAddress
         );
-        await ENS.setOwner(rootNode, controller.contractAddress);
+
+        await ensMock.setOwner(rootNode, controller.contractAddress);
         await factory.setDomainController(controller.contractAddress);
 
-        // compound mocks
-        const oracle = await deployer.deploy(PriceOracle);
+        let tx = await factory.newFunding(URI);
+        let result = await factory.verboseWaitForTransaction(tx, 'creating new fund');
 
-        const comptrollerProxy = await deployer.deploy(Unitroller);
-        const comptrollerImpl = await deployer.deploy(Comptroller);
+        fund = await etherlime.ContractAt(Fund, result.events[3].args._at)
 
-        console.log('Oracle Price : ' + oracle.contractAddress);
-        console.log('comptrollerProxy : ' + comptrollerProxy.contractAddress);
-        console.log('comptrollerImpl : ' + comptrollerImpl.contractAddress);
-
-        const tx = await comptrollerProxy._setPendingImplementation(comptrollerImpl.contractAddress);
-        await tx.wait();
-        await comptrollerProxy.pendingComptrollerImplementation();
-        const txw = await comptrollerImpl._become(comptrollerProxy.contractAddress, oracle.contractAddress, WAD.div(10), 5, false);
-        await txw.wait();
-        const resl = await comptrollerImpl.verboseWaitForTransaction(txw);
-        console.log(resl.events);
     });
 
-    it('should run tests', async() => {
-        console.log("hello");
+    it('should have a valid configuration', async () => {
+        let _owner = await fund.manager();
+        assert.strictEqual(Owner.signer.address, _owner);
+    });
+
+    it('should maintain correct funding', async () => {
+        await dai.from(donor1.signer.address).approve(fund.contractAddress, 500);
+        await dai.from(donor2.signer.address).approve(fund.contractAddress, 500);
+        await dai.from(donor3.signer.address).approve(fund.contractAddress, 500);
+
+        await fund.from(donor1.signer.address).funding(500);
+        await fund.from(donor2.signer.address).funding(250);
+        await fund.from(donor3.signer.address).funding(50);
+
+        //Balances should be equals to funds
+        let balanceFund = await fund.totalBalances();
+        let balanceCompound = await ctoken.balanceOf(fund.contractAddress);
+
+        assert.equal(balanceFund.toNumber(), balanceCompound.toNumber(), 'Balance should sum up');
+
+        await fund.from(donor1.signer.address).withdraw(250);
+
+        let donor1Balance = await fund.balanceOf(donor1.signer.address);
+
+        assert.equal(250, donor1Balance.toNumber(), 'eating user funds');
+
+        let balanceFundAfterWithdraw = await fund.totalBalances();
+        let balanceCompoundAfterWithdraw = await ctoken.balanceOf(fund.contractAddress);
+
+        assert.equal(balanceFundAfterWithdraw.toNumber(), balanceCompoundAfterWithdraw.toNumber(), 'Balance should sum up')
+        assert.equal(550, balanceFundAfterWithdraw.toNumber(), 'Balance incorrect');
+
+        //withdraw all balances
+        await fund.from(donor1.signer.address).withdraw(250);
+        await fund.from(donor2.signer.address).withdraw(250);
+        await fund.from(donor3.signer.address).withdraw(50);
+
+        let finalBalance1 = await fund.balanceOf(donor1.signer.address);
+        let finalBalance2 = await fund.balanceOf(donor2.signer.address);
+        let finalBalance3 = await fund.balanceOf(donor3.signer.address);
+
+        assert.equal(finalBalance1.toNumber() + finalBalance2.toNumber() + finalBalance3.toNumber(),  0, 'Final Balances Users incrrect');
+
+        //should have only interest or zero
+        let finalFundBalance = await ctoken.balanceOf(fund.contractAddress);
+
+        assert.equal(0, finalFundBalance.toNumber(), 'should have no ctoken');
     });
 });
-
-*/

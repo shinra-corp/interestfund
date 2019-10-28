@@ -1,6 +1,5 @@
 pragma solidity ^0.5.12;
 
-
 import "./utils/SafeMath.sol";
 import "./utils/ReentrancyGuard.sol";
 import "./interfaces/IERC20.sol";
@@ -14,7 +13,6 @@ contract Fund is ReentrancyGuard {
     event Withdraw(address indexed donor, uint256 amount);
     event TopFunding(address indexed donor, uint256 amount);
 
-    string public URI;
     address public manager;
 
     uint256 public totalBalances;
@@ -29,17 +27,15 @@ contract Fund is ReentrancyGuard {
 
     constructor(
         address _manager,
-        string memory _URI,
-        address _compoundToken,
-        address _daiToken
+        address _daiToken,
+        address _compoundToken
     )
     public
     {
         require(_manager != address(0), "Error: manager not valid");
         manager = _manager;
-        URI = _URI;
-        compoundToken = ICToken(_compoundToken);
         daiToken = IERC20(_daiToken);
+        compoundToken = ICToken(_compoundToken);
     }
 
 
@@ -53,21 +49,24 @@ contract Fund is ReentrancyGuard {
         userBalances[msg.sender] = userBalances[msg.sender].add(_amount);
 
         if(isDonor[msg.sender]) {
+
             emit TopFunding(msg.sender, _amount);
+
         } else {
+
             isDonor[msg.sender] = true;
             numberDonors = numberDonors.add(1);
             numberActiveDonors = numberActiveDonors.add(1);
             emit StartFunding(msg.sender, _amount);
         }
-
     }
 
 
     function withdraw(uint256 _amount) public nonReentrant {
 
-        require(userBalances[msg.sender] > _amount, 'Error: not enough balance');
+        require(userBalances[msg.sender] >= _amount, 'Error: not enough balance');
 
+        totalBalances = totalBalances.sub(_amount);
         userBalances[msg.sender] = userBalances[msg.sender].sub(_amount);
 
         if(userBalances[msg.sender] == 0) {
@@ -92,6 +91,8 @@ contract Fund is ReentrancyGuard {
     }
 
     function accruedInterest() public returns(uint256) {
+        uint256 cbalance = compoundToken.balanceOf(address(this));
+        return cbalance.sub(totalBalances);
     }
 
 
@@ -105,22 +106,24 @@ contract Fund is ReentrancyGuard {
     }
 
     function _openFunding(address _sender, uint256 _amount) internal {
+        //get tokens from user to Fund account
+        require(daiToken.transferFrom(_sender, address(this), _amount), 'Error transfer tokens');
 
-            //get tokens from user to Fund account
-            require(daiToken.transferFrom(_sender, address(this), _amount), 'Error transfer tokens');
-            //approve compound contract to withdraw tokens
-            require(daiToken.approve(address(compoundToken), _amount), 'failed to approve token');
-            //ask to mint new compound tokens
-            require(compoundToken.mint(_amount) == 0, 'failed to mint ctokens');
+        //approve compound contract to withdraw tokens
+        require(daiToken.approve(address(compoundToken), _amount), 'failed to approve token');
+
+        //ask to mint new compound tokens
+        require(compoundToken.mint(_amount) == 0, 'failed to mint ctokens');
     }
 
 
     function _withdraw(address _sender, uint256 _amount) internal {
 
-            //get tokens back from compound
-            require(compoundToken.redeemUnderlying(_amount) == 0, "Error: compound reddem");
-            //approve users to withdraw dai token
-            require(daiToken.approve(_sender, _amount) == true, "Error: Token Approve");
+        //get tokens back from compound
+        require(compoundToken.redeemUnderlying(_amount) == 0, "Error: compound reddem");
+
+        //approve users to withdraw dai token
+        require(daiToken.approve(_sender, _amount) == true, "Error: Token Approve");
     }
 
     modifier onlyManager {
