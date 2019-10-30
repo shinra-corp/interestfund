@@ -21,9 +21,11 @@ The basic contract is created with some test.
 To do - General:
 
 Create more tests.
-Find a way to reclaim unused subdomains. Ideal should not need a the developer.
+
+Find a way to reclaim unused subdomains. Ideal should not need a admin function.
 
 Create a tutorial showing how to use the smart contract functions.
+
 Create a tutorial smart contract to deposit and withdraw based on given interest / time. 
 
 
