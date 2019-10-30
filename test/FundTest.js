@@ -1,19 +1,19 @@
-const ENS = require("../build/ENSMock");
+const ENS = artifacts.require("ENSMock");
 
-const etherlime = require('etherlime-lib');
-const FundFactory = require("../build/FundFactory.json");
-const Fund = require("../build/Fund.json");
-const DomainController = require("../build/DomainController.json");
-const Resolver = require("../build/ENSResolverMock.json");
-const DAI = require("../build/ERC20Mock.json");
-const Compound = require("../build/CErc20.json");
+const FundFactory = artifacts.require("FundFactory");
+const Fund = artifacts.require("Fund");
+const DomainController = artifacts.require("DomainController");
+const Resolver = artifacts.require("ENSResolverMock");
+const DAI = artifacts.require("ERC20Mock");
+const Compound = artifacts.require("CErc20");
+const Liquidity = artifacts.require("LiquidityProvider");
 const utils = require("./utils/utils.js");
 const rootNode = utils.namehash("interestfund.eth");
 const URI = "funding";
 
-const supplyRate = utils.convert('0.0002').toString();
+const supplyRate = utils.convert("0.0002");
 
-describe('Fund Contract Test', () => {
+contract('Fund Contract Test', async accounts  => {
 
     let Owner = accounts[0];
 
@@ -21,92 +21,86 @@ describe('Fund Contract Test', () => {
     let donor2 = accounts[2];
     let donor3 = accounts[3];
 
-    let deployer, factory, fund, resolver,ensMock, controller, dai, ctoken;
+    let factory, fund, resolver,ensMock, controller, dai, ctoken;
 
     before(async () => {
-        deployer = new etherlime.EtherlimeGanacheDeployer(Owner.secretKey);
 
         //infrastructure contracts
-        dai = await deployer.deploy(DAI, {}, Owner.signer.address, 10000);
-        ctoken = await deployer.deploy(Compound, {}, dai.contractAddress, supplyRate);
-        resolver = await deployer.deploy(Resolver, {});
-
+        dai = await DAI.new(Owner, utils.convert("1"));
+        ctoken = await Compound.new(dai.address, supplyRate);
+        resolver = await Resolver.new();
+        proxy = await Liquidity.new(dai.address, ctoken.address);
         //give dai tokens to donors
-        await dai.mint(donor1.signer.address, utils.convert("1.0"));
-        await dai.mint(donor2.signer.address, utils.convert("1.0"));
-        await dai.mint(donor3.signer.address, utils.convert("1.0"));
+        await dai.mint(donor1, utils.convert("1.0"));
+        await dai.mint(donor2, utils.convert("1.0"));
+        await dai.mint(donor3, utils.convert("1.0"));
 
-        factory = await deployer.deploy(
-            FundFactory,
-            {},
-            dai.contractAddress,
-            ctoken.contractAddress
-        );
+        factory = await FundFactory.new(dai.address, ctoken.address);
+        ensMock = await ENS.new(rootNode, Owner);
+        controller = await DomainController.new(rootNode, factory.address, ensMock.address, resolver.address);
 
-        ensMock = await deployer.deploy(ENS, {}, rootNode, deployer.signer.address);
-
-        controller = await deployer.deploy(
-            DomainController,
-            {},
-            rootNode,
-            factory.contractAddress,
-            ensMock.contractAddress,
-            resolver.contractAddress
-        );
-
-        await ensMock.setOwner(rootNode, controller.contractAddress);
-        await factory.setDomainController(controller.contractAddress);
+        await ensMock.setOwner(rootNode, controller.address);
+        await factory.setDomainController(controller.address);
 
         let tx = await factory.newFunding(URI);
-        let result = await factory.verboseWaitForTransaction(tx, 'creating new fund');
+        fund = await Fund.at(tx.logs[0].args._at);
 
-        fund = await etherlime.ContractAt(Fund, result.events[3].args._at)
+        //add liquidity to pool to pay interest
+        await dai.transfer(proxy.address, utils.convert("1"));
+        await proxy.transferToPool(fund.address, utils.convert("1"));
 
     });
 
     it('should have a valid configuration', async () => {
-        let _owner = await fund.manager();
-        assert.strictEqual(Owner.signer.address, _owner);
+        let _owner = await fund.manager.call();
+        assert.strictEqual(Owner, _owner);
     });
 
     it('should maintain correct funding', async () => {
-        await dai.from(donor1.signer.address).approve(fund.contractAddress, utils.convert("0.05").toString());
-        await dai.from(donor2.signer.address).approve(fund.contractAddress, utils.convert("0.05").toString());
-        await dai.from(donor3.signer.address).approve(fund.contractAddress, utils.convert("0.05").toString());
 
-        await fund.from(donor1.signer.address).funding(utils.convert("0.05").toString());
-        await fund.from(donor2.signer.address).funding(utils.convert("0.004").toString());
-        await fund.from(donor3.signer.address).funding(utils.convert("0.001").toString());
+        await dai.approve(fund.address, utils.convert("0.05"), {from: donor1});
+        await dai.approve(fund.address, utils.convert("0.05"), {from: donor2});
+        await dai.approve(fund.address, utils.convert("0.05"), {from: donor3});
+
+        //Start funding a project
+        await fund.funding(utils.convert("0.05"), {from: donor1});
+        await fund.funding(utils.convert("0.004"), {from: donor2});
+        await fund.funding(utils.convert("0.001"), {from: donor3});
 
         //Balances should be equals to funds
-        let balanceFund = await fund.totalBalances();
-        //let fake_interest = balanceFund * supplyRate;
+        let balanceFund = await fund.totalBalances.call();
+        let balanceCompound = await ctoken.balanceOf.call(fund.address);
+        let balanceDAIFund = await ctoken.balanceOfUnderlying(fund.address);
 
-        //console.log(fake_interest);
-        //console.log(utils.convert("0.05"));
-        let balanceCompound = await ctoken.balanceOf(fund.contractAddress);
-        //should have balance + interest
-        assert.ok(balanceFund.eq(balanceCompound), 'Balance Compound Token should sum up');
+        assert.ok(balanceFund.eq(balanceCompound), 'Balances to equals');
+        let interestFund = await fund.accruedInterest.call();
+        //Totally fake
+        let underBalance = await ctoken.balanceOfUnderlying(fund.address);
+        let fake_interest = underBalance.sub(balanceFund);
 
-        await fund.from(donor1.signer.address).withdraw(utils.convert("0.025"));
+        assert.ok(fake_interest.eq(interestFund), 'Interest not equal');
 
-        let donor1Balance = await fund.balanceOf(donor1.signer.address);
-        assert.ok(utils.convert("0.025").eq(donor1Balance), 'eating user funds');
+        await fund.withdraw(utils.convert("0.025"), {from: donor1});
+
+        let donor1Balance = await fund.balanceOf(donor1);
+
+        assert.ok(web3.utils.toBN(utils.convert("0.025")).eq(donor1Balance), 'eating user funds');
 
         let balanceFundAfterWithdraw = await fund.totalBalances();
-        let balanceCompoundAfterWithdraw = await ctoken.balanceOf(fund.contractAddress);
+        let balanceCompoundAfterWithdraw = await ctoken.balanceOf(fund.address);
 
         assert.ok(balanceFundAfterWithdraw.eq(balanceCompoundAfterWithdraw), 'Balance Compound after withdraw should sum up')
 
         //withdraw all balances
-        await fund.from(donor1.signer.address).withdraw(utils.convert("0.025").toString());
-        await fund.from(donor2.signer.address).withdraw(utils.convert("0.004").toString());
-        await fund.from(donor3.signer.address).withdraw(utils.convert("0.001").toString());
+        await fund.withdraw(utils.convert("0.025"), {from: donor1});
+        await fund.withdraw(utils.convert("0.004"), {from: donor2});
+        await fund.withdraw(utils.convert("0.001"), {from: donor3});
 
-        let finalBalance1 = await fund.balanceOf(donor1.signer.address);
-        let finalBalance2 = await fund.balanceOf(donor2.signer.address);
-        let finalBalance3 = await fund.balanceOf(donor3.signer.address);
+        let finalBalance1 = await fund.balanceOf.call(donor1);
+        let finalBalance2 = await fund.balanceOf.call(donor2);
+        let finalBalance3 = await fund.balanceOf.call(donor3);
 
         assert.equal(finalBalance1.toNumber() + finalBalance2.toNumber() + finalBalance3.toNumber(),  0, 'Final Balances Users incrrect');
     });
+
 });

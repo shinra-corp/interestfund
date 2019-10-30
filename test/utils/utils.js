@@ -1,12 +1,12 @@
-const ethers = require("ethers");
+const namehash = require('eth-ens-namehash')
 
 module.exports = {
 
     namehash: function(nameString) {
-        return ethers.utils.namehash(nameString);
+        return namehash.hash(nameString);
     },
 
     convert: function(number) {
-        return ethers.utils.parseEther(number);
+        return web3.utils.toWei(number);
     }
 }

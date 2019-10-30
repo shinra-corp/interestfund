@@ -1,4 +1,4 @@
-pragma solidity ^0.5.12;
+pragma solidity ^0.5.0;
 
 import "./utils/SafeMath.sol";
 import "./utils/ReentrancyGuard.sol";
@@ -90,8 +90,8 @@ contract Fund is ReentrancyGuard {
         emit Withdraw(msg.sender, _amount);
     }
 
-    function accruedInterest() public returns(uint256) {
-        uint256 cbalance = compoundToken.balanceOf(address(this));
+    function accruedInterest() public view returns(uint256) {
+        uint256 cbalance = compoundToken.balanceOfUnderlying(address(this));
         return cbalance.sub(totalBalances);
     }
 
