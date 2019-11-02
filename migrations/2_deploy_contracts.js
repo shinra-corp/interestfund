@@ -58,7 +58,7 @@ function _deployToGanache(deployer, owner) {
         return deployer.deploy(ENS, rootNode, owner);
     }).then(function(instance) {
         _ensMock = instance;
-        return deployer.deploy(DomainController, rootNode, _factory.address, _ensMock.address, _resolver.address);
+        return deployer.deploy(DomainController, rootNode, _factory.address, _ensMock.address, _resolver.address, 14);
     });
 
 }

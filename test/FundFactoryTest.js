@@ -27,7 +27,7 @@ contract('Fund Factory Contract Test', async accounts => {
 
         ensMock = await ENS.new(rootNode, Owner);
 
-        controller = await DomainController.new(rootNode, factory.address, ensMock.address, resolver.address);
+        controller = await DomainController.new(rootNode, factory.address, ensMock.address, resolver.address, 14);
 
         await ensMock.setOwner(rootNode, controller.address);
         await factory.setDomainController(controller.address);
