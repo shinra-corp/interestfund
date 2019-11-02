@@ -31,14 +31,14 @@ contract('DomainController Contract Test', async accounts  => {
         //give dai tokens to donors
         await dai.mint(donor1, utils.convert("1.0"));
 
-        factory = await FundFactory.new(dai.address, ctoken.address);
+        factory = await FundFactory.new(dai.address, ctoken.address, utils.convert("0.05"));
         ensMock = await ENS.new(rootNode, Owner);
-        controller = await DomainController.new(rootNode, factory.address, ensMock.address, resolver.address, 14);
+        controller = await DomainController.new(rootNode, factory.address, ensMock.address, resolver.address);
 
         await ensMock.setOwner(rootNode, controller.address);
         await factory.setDomainController(controller.address);
 
-        let tx = await factory.newFunding(URI);
+        let tx = await factory.newFunding(URI, {value : utils.convert("0.05")});
         fund = await Fund.at(tx.logs[0].args._at);
 
         //add liquidity to pool to pay interest
@@ -54,10 +54,5 @@ contract('DomainController Contract Test', async accounts  => {
     it('should have a valid configuration', async () => {
         let _owner = await controller.owner.call();
         assert.strictEqual(_owner, Owner);
-    });
-
-    it("should register a new claim", async () => {
-        let tx = await controller.askFromSubdomain(URI);
-        assert.strictEqual(tx.logs[0].event, 'ReclaimSubDomain');
     });
 });

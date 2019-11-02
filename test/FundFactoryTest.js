@@ -23,11 +23,11 @@ contract('Fund Factory Contract Test', async accounts => {
         ctoken = await Compound.new(dai.address, 100);
         resolver = await Resolver.new();
 
-        factory = await FundFactory.new(dai.address, ctoken.address);
+        factory = await FundFactory.new(dai.address, ctoken.address, utils.convert("0.05"));
 
         ensMock = await ENS.new(rootNode, Owner);
 
-        controller = await DomainController.new(rootNode, factory.address, ensMock.address, resolver.address, 14);
+        controller = await DomainController.new(rootNode, factory.address, ensMock.address, resolver.address);
 
         await ensMock.setOwner(rootNode, controller.address);
         await factory.setDomainController(controller.address);
@@ -45,7 +45,7 @@ contract('Fund Factory Contract Test', async accounts => {
         let fundingName = "funding";
         let URL = utils.namehash(fundingName + '.' + 'interestfund.eth');
 
-        let tx = await factory.newFunding(fundingName);
+        let tx = await factory.newFunding(fundingName, {value: utils.convert("0.05")});
         assert.strictEqual(tx.logs[0].event, "NewFunding");
 
         let deployFund = await Fund.at(tx.logs[0].args._at);

@@ -1,4 +1,5 @@
 const namehash = require('eth-ens-namehash')
+const web3 = require('web3');
 
 module.exports = {
 

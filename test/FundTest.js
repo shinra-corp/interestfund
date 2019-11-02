@@ -35,14 +35,14 @@ contract('Fund Contract Test', async accounts  => {
         await dai.mint(donor2, utils.convert("1.0"));
         await dai.mint(donor3, utils.convert("1.0"));
 
-        factory = await FundFactory.new(dai.address, ctoken.address);
+        factory = await FundFactory.new(dai.address, ctoken.address, utils.convert("0.05"));
         ensMock = await ENS.new(rootNode, Owner);
-        controller = await DomainController.new(rootNode, factory.address, ensMock.address, resolver.address, 14);
+        controller = await DomainController.new(rootNode, factory.address, ensMock.address, resolver.address);
 
         await ensMock.setOwner(rootNode, controller.address);
         await factory.setDomainController(controller.address);
 
-        let tx = await factory.newFunding(URI);
+        let tx = await factory.newFunding(URI, {value : utils.convert("0.05")});
         fund = await Fund.at(tx.logs[0].args._at);
 
         //add liquidity to pool to pay interest

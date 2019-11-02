@@ -90,6 +90,7 @@ contract Fund is ReentrancyGuard {
         emit Withdraw(msg.sender, _amount);
     }
 
+
     function accruedInterest() public view returns(uint256) {
         uint256 cbalance = compoundToken.balanceOfUnderlying(address(this));
         return cbalance.sub(totalBalances);
@@ -100,10 +101,6 @@ contract Fund is ReentrancyGuard {
         return userBalances[_donor];
     }
 
-
-    function () external payable {
-        revert("Error: call method directly");
-    }
 
     function _openFunding(address _sender, uint256 _amount) internal {
         //get tokens from user to Fund account
@@ -125,6 +122,7 @@ contract Fund is ReentrancyGuard {
         //approve users to withdraw dai token
         require(daiToken.approve(_sender, _amount) == true, "Error: Token Approve");
     }
+
 
     modifier onlyManager {
         require(msg.sender == manager, 'Error: not manager');

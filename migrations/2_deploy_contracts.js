@@ -52,13 +52,13 @@ function _deployToGanache(deployer, owner) {
         return deployer.deploy(Compound, instance.address, supplyRate);
     }).then(function(instance) {
         _ctoken = instance;
-        return deployer.deploy(FundFactory, _dai.address, instance.address);
+        return deployer.deploy(FundFactory, _dai.address, instance.address, utils.convert("0.05"));
     }).then(function(instance) {
         _factory = instance;
         return deployer.deploy(ENS, rootNode, owner);
     }).then(function(instance) {
         _ensMock = instance;
-        return deployer.deploy(DomainController, rootNode, _factory.address, _ensMock.address, _resolver.address, 14);
+        return deployer.deploy(DomainController, rootNode, _factory.address, _ensMock.address, _resolver.address);
     });
 
 }
