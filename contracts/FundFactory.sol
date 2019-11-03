@@ -22,6 +22,7 @@ contract FundFactory is Ownable {
     event DomainControllerChange(address indexed _old, address indexed _new);
     event DAITokenChange(address indexed _old, address indexed _new);
     event CompoundTokenChange(address indexed _old, address indexed _new);
+    event StopFunding(address indexed _manager, address indexed _at);
 
     IDomainController public controller;
     address public daiToken;
@@ -72,6 +73,8 @@ contract FundFactory is Ownable {
         controller.releaseSubDomain(_URI, _manager);
 
         msg.sender.transfer(_collateral);
+
+        emit StopFunding(msg.sender, _fund);
 
     }
 

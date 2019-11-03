@@ -70,4 +70,15 @@ contract('Fund Factory Contract Test', async accounts => {
         assert.strictEqual(tx.logs[0].event, 'CompoundTokenChange');
     });
 
+    it('should release subdoamin', async () => {
+        let fundingName = "funding";
+        let URL = utils.namehash(fundingName + '.' + 'interestfund.eth');
+        await factory.newFunding(fundingName, {value: utils.convert("0.05")});
+        let _iniBalance = web3.utils.toBN(await web3.eth.getBalance(Owner));
+        let tx = await factory.retrieveCollateral("funding", { from: Owner});
+        assert.strictEqual(tx.logs[0].event, 'StopFunding');
+        let _endBalance = web3.utils.toBN(await web3.eth.getBalance(Owner));
+        assert.ok(_iniBalance.lt(_endBalance), 'releasing subdomain dont transfer collateral');
+    })
+
 });
