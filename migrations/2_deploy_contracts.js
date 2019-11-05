@@ -1,5 +1,5 @@
 const utils = require("../test/utils/utils.js");
-//const endpoints = require("../config.js");
+const config = require("../config.js");
 const rootNode = utils.namehash("interestfund.eth");
 
 const FundFactory = artifacts.require("FundFactory");
@@ -14,9 +14,9 @@ const Compound = artifacts.require("CErc20");
 module.exports = function(deployer, network, accounts) {
 
     switch(network) {
-        case "Mainnet": _deployToMainnet(deployer, accounts); break;
-        case "Ropsten": _deployToRopsten(deployer, accounts); break;
-        case "Goerli": _deployToGoerli(deployer, accounts); break;
+        case "mainnet": _deployToMainnet(deployer, accounts); break;
+        case "ropsten": _deployToRopsten(deployer, accounts); break;
+        case "goerli": _deployToGoerli(deployer, accounts); break;
         default: _deployToGanache(deployer, accounts[0]); break;
     }
 }
@@ -27,7 +27,22 @@ function _deployToMainnet(deployer, accounts) {
 }
 
 function _deployToRopsten(deployer, accounts) {
-    return;
+
+    let _dai, _resolver, _factory;
+
+    console.log("Starting Ropsten Deployment");
+
+    deployer.deploy(Resolver).then(function(instance) {
+        _resolver = instance;
+        return _resolver;
+    }).then(function() {
+        return deployer.deploy(FundFactory, config.DAI.Ropsten, config.Compound.Ropsten)
+    }).then(function(instance) {
+        _factory = instance;
+        return deployer.deploy(FundFactory, config.DAI.Ropsten, config.Compound.Ropsten)
+    }).then(function(instance) {
+        deployer.deploy(DomainController, rootNode, _factory.address, config.ENS.Ropsten, _resolver.address);
+    });
 }
 
 function _deployToGoerli(deployer, accounts) {
