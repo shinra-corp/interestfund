@@ -65,3 +65,9 @@ cd interestfund
 truffle test
 ```
 
+### Learn more
+
+{% embed url="https://shinra-corporation.gitbook.io/interest-fund/" %}
+
+
+
