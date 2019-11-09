@@ -46,3 +46,13 @@ When a already donor top funding with more DAI tokens.
 * donor - Address that transfer DAI token to Fund
 * amount - Amount in DAI \(18 decimals\) transfer to Fund
 
+### Functions
+
+```text
+function funding(uint256 _amount) public nonReentrant
+```
+
+Start funding a project.
+
+* \_amount - Amount of DAI Tokens approved to fund.
+
