@@ -4,8 +4,6 @@ description: Description of Fund Smart Contract
 
 # Fund
 
-
-
 Fund Smart Contract is the Project Wallet that receives DAI from Donors and lend to Compound.  
 This smart contract is responsible to manage the user fund such that Project members can´t spend money that don´t belong to them.
 
