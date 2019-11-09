@@ -56,3 +56,21 @@ Start funding a project.
 
 * \_amount - Amount of DAI Tokens approved to fund.
 
+```text
+function withdraw(uint256 _amount) public nonReentrant
+```
+
+Withdraw your DAI from project.
+
+* \_amount - Amount of DAI Tokens to withdraw from fund.
+
+```text
+function withdrawInterest(uint256 _amount) public onlyManager nonReentrant
+```
+
+Withdraw generated interest from project. This function call only be call by the Fund manager.
+
+* \_amount - Amount of DAI Tokens to withdraw from interest fund.
+
+
+
