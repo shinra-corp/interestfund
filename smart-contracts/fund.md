@@ -72,3 +72,23 @@ Withdraw generated interest from project. This function call only be call by the
 
 * \_amount - Amount of DAI Tokens to withdraw from interest fund.
 
+```text
+function accruedInterest() public view returns(uint256)
+```
+
+Return the amount of interests generated from donations.
+
+```text
+function balanceOf(address _donor) public view returns(uint256)
+```
+
+Return the balance of a given address. This balance don't change as DAI accrued interest.
+
+* \_donor - Address of donor that will return balance.
+
+```text
+function () external payable
+```
+
+Default Function that will always revert.
+
