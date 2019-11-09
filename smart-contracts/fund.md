@@ -72,5 +72,3 @@ Withdraw generated interest from project. This function call only be call by the
 
 * \_amount - Amount of DAI Tokens to withdraw from interest fund.
 
-
-
