@@ -4,15 +4,11 @@ jobs:
     image: node
     script:
       - npm install truffle
-      - npm install @openzeppelin/contracts
-      - npm install dotenv
       - npx truffle compile
   test:
     image: node
     script:
       - npm install truffle
-      - npm install @openzeppelin/contracts
-      - npm install dotenv
       - npx truffle test
 stages:
   - pipeline:
