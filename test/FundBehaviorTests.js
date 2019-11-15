@@ -51,10 +51,20 @@ contract('Fund Contract Test', async accounts  => {
 
     });
 
-    it('should have a valid configuration', async () => {
-        let _owner = await fund.manager.call();
-        assert.strictEqual(Owner, _owner);
+    it('should revert on default call', async () => {
+        let emitError = false;
+        try {
+            await fund.sendTransaction({from: accounts[0], value: 1000});
+        } catch(err) {
+            emitError = true;
+            assert.strictEqual(err.reason.split(':')[1].trim(), 'call method directly');
+        }
+
+        if(!emitError) {
+            throw ('error not emitted');
+        }
     });
+
 
     it('should maintain correct funding', async () => {
 
