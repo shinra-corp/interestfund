@@ -1,3 +1,7 @@
+
+[![Build Status](https://travis-ci.com/shinra-corp/interestfund.svg?branch=master)](https://travis-ci.com/shinra-corp/interestfund)
+[![Coverage Status](https://coveralls.io/repos/github/shinra-corp/interestfund/badge.svg)](https://coveralls.io/github/shinra-corp/interestfund)
+
 # Interest Fund
 
 Fund a Project with DAI Compound Interest. You don't give away your money only the interest of that deposit. You can think that you are giving your time. A donor can start funding one project then change to another project at any time.
