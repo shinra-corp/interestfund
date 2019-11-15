@@ -27,5 +27,6 @@
   },
   "devDependencies": {
     "solidity-coverage": "^0.6.7"
-  }
+  },
+  "coverage": "./node_modules/.bin/solidity-coverage"
 }
