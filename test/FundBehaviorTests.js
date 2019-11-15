@@ -13,7 +13,7 @@ const URI = "funding";
 
 const supplyRate = utils.convert("0.0002");
 
-contract('Fund Contract Test', async accounts  => {
+contract('Fund Contract Behavior Test', async accounts  => {
 
     let Owner = accounts[0];
 
@@ -51,6 +51,30 @@ contract('Fund Contract Test', async accounts  => {
 
     });
 
+    /*Test Events*/
+    it('should emit starting event', async () => {
+        await dai.approve(fund.address, utils.convert("0.05"), {from: donor1});
+        let tx = await fund.funding(utils.convert("0.05"), {from: donor1});
+
+        assert.strictEqual(tx.logs[0].event, 'StartFunding', 'Event not emitted');
+    });
+
+
+    it('should emit topping fund event', async () => {
+        await dai.approve(fund.address, utils.convert("0.05"), {from: donor1});
+        await fund.funding(utils.convert("0.02"), {from: donor1});
+        let tx = await fund.funding(utils.convert("0.02"), {from: donor1});
+        assert.strictEqual(tx.logs[0].event, 'TopFunding', 'Event not emitted');
+    });
+
+    it('should emit withdraw event', async () => {
+        await dai.approve(fund.address, utils.convert("0.05"), {from: donor1});
+        await fund.funding(utils.convert("0.02"), {from: donor1});
+        let tx = await fund.withdraw(utils.convert("0.025"), {from: donor1});
+        assert.strictEqual(tx.logs[0].event, 'Withdraw', 'Event not emitted');
+
+    });
+
     it('should revert on default call', async () => {
         let emitError = false;
         try {
@@ -64,4 +88,5 @@ contract('Fund Contract Test', async accounts  => {
             throw ('error not emitted');
         }
     });
+
 });
