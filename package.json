@@ -7,7 +7,8 @@
     "test": "test"
   },
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "coverage": "./node_modules/.bin/solidity-coverage"
   },
   "repository": {
     "type": "git",
@@ -27,6 +28,5 @@
   },
   "devDependencies": {
     "solidity-coverage": "^0.6.7"
-  },
-  "coverage": "./node_modules/.bin/solidity-coverage"
+  }
 }
