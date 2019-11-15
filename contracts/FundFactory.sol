@@ -34,6 +34,7 @@ contract FundFactory is Ownable {
         compoundToken = _compoundToken;
     }
 
+
     ///@notice Create a new Fund project with a subdomain. The new Fund will have endpoint configured for you.
     ///@notice The new Fund address is saved to facilite frontend listing
     ///@param _URI Define the name of the new Fund. Must be unique.
@@ -56,6 +57,8 @@ contract FundFactory is Ownable {
         emit DomainControllerChange(address(controller), _controller);
         controller = IDomainController(_controller);
     }
+
+
     ///@notice Define a new DAI contract used by Fund instances.
     ///@param _newDaiToken New DAI contract address
     function setDAIToken(address _newDaiToken) public onlyOwner {
@@ -64,6 +67,8 @@ contract FundFactory is Ownable {
         emit DAITokenChange(daiToken, _newDaiToken);
         daiToken = _newDaiToken;
     }
+
+
     ///@notice Define a new Compound market contract used by Fund instances.
     ///@param _newCompoundToken New Compound Market address
     function setCompoundToken(address _newCompoundToken) public onlyOwner {

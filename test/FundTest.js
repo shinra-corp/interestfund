@@ -75,19 +75,19 @@ contract('Fund Contract Test', async accounts  => {
         assert.ok(balanceFund.eq(balanceCompound), 'Balances to equals');
         let interestFund = await fund.accruedInterest.call();
         //Totally fake
-        let underBalance = await ctoken.balanceOfUnderlying(fund.address);
+        let underBalance = await ctoken.balanceOfUnderlying.call(fund.address);
         let fake_interest = underBalance.sub(balanceFund);
 
         assert.ok(fake_interest.eq(interestFund), 'Interest not equal');
 
         await fund.withdraw(utils.convert("0.025"), {from: donor1});
 
-        let donor1Balance = await fund.balanceOf(donor1);
+        let donor1Balance = await fund.balanceOf.call(donor1);
 
         assert.ok(web3.utils.toBN(utils.convert("0.025")).eq(donor1Balance), 'eating user funds');
 
-        let balanceFundAfterWithdraw = await fund.totalBalances();
-        let balanceCompoundAfterWithdraw = await ctoken.balanceOf(fund.address);
+        let balanceFundAfterWithdraw = await fund.totalBalances.call();
+        let balanceCompoundAfterWithdraw = await ctoken.balanceOf.call(fund.address);
 
         assert.ok(balanceFundAfterWithdraw.eq(balanceCompoundAfterWithdraw), 'Balance Compound after withdraw should sum up')
 
