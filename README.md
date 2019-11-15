@@ -30,7 +30,16 @@ Create a tutorial smart contract to deposit and withdraw based on given interest
 
 ## How to help
 
-This project uses Truffle Framework and Ganache-cli
+This project uses Truffle Framework, Ganache-cli and solidity-coverage
+
+Install all dependancies
+```
+
+```text
+npm init
+```
+
+Or...
 
 Install Truffle
 
@@ -63,6 +72,12 @@ ganache-cli
 cd interestfund
 
 truffle test
+```
+
+Running Coverage Report 
+
+```text
+npx solidity-coverage
 ```
 
 ### Learn more
