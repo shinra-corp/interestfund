@@ -4,14 +4,11 @@ import "./ENS.sol";
 import "./ENSResolver.sol";
 import "../utils/Ownable.sol";
 
-/**
-    @title Interact with ENS system.
-    @dev Only account define as Asker can make a new subdomain. All subdamains are unique.
-    @author axe
- */
+///@title Interact with ENS system.
+///@dev Only account define as Asker can make a new subdomain. All subdamains are unique.
+///@author axe
 contract DomainController is Ownable {
 
-    address public owner;
     address public asker;
     bytes32 public rootNode;
     ENS public ens;
@@ -31,10 +28,10 @@ contract DomainController is Ownable {
     }
 
 
-    //@notice Submit to ENS a new subdomain of rootNode.
-    //@param label name of the subdomain.
-    //@param endpoint address that resolver will point.
-    //@param manager address of manager that create funding.
+    ///@notice Submit to ENS a new subdomain of rootNode.
+    ///@param label name of the subdomain.
+    ///@param endpoint address that resolver will point.
+    ///@param manager address of manager that create funding.
     function newSubDomain(string calldata label, address endpoint, address manager) external onlyAsker {
         bytes32 _label = keccak256(abi.encodePacked(label));
         bytes32 _node = keccak256(abi.encodePacked(rootNode, _label));
@@ -51,15 +48,15 @@ contract DomainController is Ownable {
     }
 
 
-    //@notice get rootNode ownership back.
+    ///@notice get rootNode ownership back.
     function transferDomain() public onlyOwner {
         ens.setOwner(rootNode, msg.sender);
         emit DomainReclaim(msg.sender);
     }
 
 
-    //@notice change contract that can ask a new subdomain
-    //@param _newAsker new contract that can ask for new subdomains.
+    ///@notice change contract that can ask a new subdomain
+    ///@param _newAsker new contract that can ask for new subdomains.
     function changeAsker(address _newAsker) public onlyOwner {
         require(_newAsker != address(0), 'Error: Invalid address');
         asker = _newAsker;
