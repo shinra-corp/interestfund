@@ -27,6 +27,5 @@ contract('Ownable Contract Test', async accounts => {
 
         let review_owner = await contract.owner.call();
         assert.strictEqual(review_owner, NewOwner);
-
     });
 });
