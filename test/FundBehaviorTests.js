@@ -75,6 +75,8 @@ contract('Fund Contract Behavior Test', async accounts  => {
 
     });
 
+    /*Test Reverts*/
+
     it('should revert on default call', async () => {
         let emitError = false;
         try {
@@ -89,4 +91,26 @@ contract('Fund Contract Behavior Test', async accounts  => {
         }
     });
 
+    it('should revert without good amount in funding', async () => {
+        let emitError = false;
+        await dai.approve(fund.address, utils.convert("0.05"), {from: donor1});
+
+        try {
+            await fund.funding(utils.convert("0.00"), {from: donor1});
+        } catch(err) {
+            emitError = true;
+            assert.strictEqual(err.reason.split(':')[1].trim(), 'define amount');
+        }
+    });
+
+    it('should revert without good amount in withdraw', async () => {
+        let emitError = false;
+
+        try {
+            await fund.withdraw(utils.convert("0.00"), {from: donor1});
+        } catch(err) {
+            emitError = true;
+            assert.strictEqual(err.reason.split(':')[1].trim(), 'not enough balance');
+        }
+    });
 });
