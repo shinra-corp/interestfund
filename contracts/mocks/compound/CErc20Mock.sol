@@ -2,6 +2,7 @@ pragma solidity ^0.5.11;
 
 import "../../interfaces/IERC20.sol";
 import "../../interfaces/ICToken.sol";
+
 import "../../utils/SafeMath.sol";
 
 
@@ -21,15 +22,10 @@ contract CErc20 is ICToken {
         _supplyRateBlock = _supplyRatePerBlock;
     }
 
-   function addLiquidity(address pool, uint256 amount) public {
-       //require(pool != address(0), "here");
-       //require(amount != 0, "here2");
-//       revert("HERE");
-        //require(_underlyingToken.transferFrom(msg.sender, address(this), amount), 'Error: Unable to transfer tokens');
-//        balance[address(this)] = 1000;
-        _testing = 1;
-    }
 
+    function addLiquidity(address pool, uint256 amount) external {
+        balance[pool] = balance[pool] + amount;
+    }
 
     function mint(uint256 amount) external returns(uint) {
         require(_underlyingToken.transferFrom(msg.sender, address(this), amount), 'Error: Unable to transfer tokens');
@@ -37,9 +33,10 @@ contract CErc20 is ICToken {
         return 0;
     }
 
-    function redeemUnderlying(uint redeemamount) external returns (uint) {
-        balance[msg.sender] = balance[msg.sender].sub(redeemamount);
-        require(_underlyingToken.transfer(msg.sender, redeemamount), 'Error: Unable to transfer tokens');
+
+    function redeemUnderlying(uint reddemAmount) external returns (uint) {
+        balance[msg.sender] = balance[msg.sender].sub(reddemAmount);
+        require(_underlyingToken.transfer(msg.sender, reddemAmount), 'Error: Unable to transfer tokens');
         return 0;
     }
 
@@ -60,6 +57,4 @@ contract CErc20 is ICToken {
     function supplyRatePerBlock() external returns (uint) {
         return _supplyRateBlock;
     }
-
-
 }

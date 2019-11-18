@@ -82,7 +82,7 @@ contract Fund is ReentrancyGuard {
             numberActiveDonors = numberActiveDonors.sub(1);
         }
 
-        _withdraw(msg.sender,_amount);
+        _withdraw(_amount);
 
         emit Withdraw(msg.sender, _amount);
     }
@@ -92,18 +92,21 @@ contract Fund is ReentrancyGuard {
     ///@param _amount The amount of DAI token to withdraw from this project wallet. Use 18 decimals
     function withdrawInterest(uint256 _amount) public onlyManager nonReentrant {
         //get compound balance
-        uint cbalance = compoundToken.balanceOf(address(this));
-
+        uint256 cbalance = compoundToken.balanceOf(address(this));
         require(cbalance.sub(totalBalances) >= _amount, 'Error: not enough balance');
-        _withdraw(msg.sender, _amount);
 
-        emit Withdraw(msg.sender, _amount);
+        _withdraw(_amount);
+
+        emit Withdraw(address(this), _amount);
     }
 
     ///@notice Return the amount of accrued interest from fund on Compound market.
     ///@return _amount The amount of interest generated. Use 18 decimals
     function accruedInterest() public view returns(uint256) {
         uint256 cbalance = compoundToken.balanceOfUnderlying(address(this));
+        if(cbalance < totalBalances) {
+            return 0;
+        }
         return cbalance.sub(totalBalances);
     }
 
@@ -130,14 +133,14 @@ contract Fund is ReentrancyGuard {
     }
 
 
-    function _withdraw(address _sender, uint256 _amount) internal {
-
+    function _withdraw(uint256 _amount) internal {
         //get tokens back from compound
         require(compoundToken.redeemUnderlying(_amount) == 0, "Error: compound reddem");
 
-        //approve users to withdraw dai token
-        require(daiToken.approve(_sender, _amount) == true, "Error: Token Approve");
+        //Transfer tokens to user address
+        require(daiToken.transfer(msg.sender, _amount), "Error: DAI transfer");
     }
+
 
     modifier onlyManager {
         require(msg.sender == manager, 'Error: not manager');

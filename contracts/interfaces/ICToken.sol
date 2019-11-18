@@ -2,7 +2,6 @@ pragma solidity ^0.5.11;
 
 interface ICToken {
 
-
     function redeemUnderlying(uint redeemamount) external returns (uint);
 
     function balanceOf(address account) external view returns (uint);
