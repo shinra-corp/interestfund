@@ -36,6 +36,7 @@ contract DomainController is Ownable {
         bytes32 _label = keccak256(abi.encodePacked(label));
         bytes32 _node = keccak256(abi.encodePacked(rootNode, _label));
         require(register[_node] == false, 'Error: Subdomain registry');
+        register[_node] = true;
 
         //register a new sub domain
         ens.setSubnodeOwner(rootNode, _label, address(this));
