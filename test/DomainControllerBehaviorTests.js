@@ -61,4 +61,20 @@ contract('Domain Controller Behavior Contract Test', async accounts => {
             throw ('error not emitted');
         }
     });
+
+    it('should revert if not asker', async () => {
+        let emitError = false;
+
+        try {
+            await controller.newSubDomain(label, resolver.address, manager, {from: accounts[5]});
+        } catch(err) {
+            emitError = true;
+            assert.strictEqual(err.reason.split(':')[1].trim(), 'not contract call');
+        }
+
+        if(!emitError) {
+            throw ('error not emitted');
+        }
+
+    });
 });

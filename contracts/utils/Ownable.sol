@@ -18,21 +18,21 @@ contract Ownable {
     ///@dev The new owner must accept the ownership
     ///@param _newOwner address of the new Owner
     function changeOwner(address _newOwner) public onlyOwner {
-        require(_newOwner != address(0), 'Must be a valid new Owner');
+        require(_newOwner != address(0), 'Error: Invalid address');
         nextOwner = _newOwner;
         emit ProposedNewOwner(_newOwner);
     }
 
     ///@notice Accept ownership of contract
     function acceptOwnership() public {
-        require(msg.sender == nextOwner, 'not the next owner');
+        require(msg.sender == nextOwner, 'Error: next owner');
         owner = nextOwner;
         delete nextOwner;
         emit AcceptNewOwner(owner);
     }
 
     modifier onlyOwner {
-        require(msg.sender == owner, 'not owner');
+        require(msg.sender == owner, 'Error: not owner');
         _;
     }
 }

@@ -67,7 +67,7 @@ contract DomainController is Ownable {
 
 
     modifier onlyAsker {
-        require(msg.sender == asker, 'not contract call');
+        require(msg.sender == asker, 'Error: not contract call');
         _;
     }
 }
