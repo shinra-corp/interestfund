@@ -12,6 +12,7 @@ const rootNode = utils.namehash("interestfund.eth");
 const URI = "funding";
 
 const supplyRate = utils.convert("0.0002");
+const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 
 contract('Fund Contract Behavior Test', async accounts  => {
 
@@ -76,6 +77,35 @@ contract('Fund Contract Behavior Test', async accounts  => {
     });
 
     /*Test Reverts*/
+
+    it('should revert in instantiation without manager address', async () => {
+        let emitError = false;
+        try {
+            await Fund.new(ZERO_ADDRESS, dai.address, ctoken.address);
+        } catch(err) {
+            emitError = true;
+            assert.strictEqual(err.reason.split(':')[1].trim(), 'manager not valid');
+        }
+
+        if(!emitError) {
+            throw ('error not emitted');
+        }
+    });
+
+
+    it('should revert in insufficient interest balance', async () => {
+        let emitError = false;
+        try {
+            await fund.withdrawInterest(utils.convert("1111"));
+        } catch(err) {
+            emitError = true;
+            assert.strictEqual(err.reason.split(':')[1].trim(), 'not enough balance');
+        }
+
+        if(!emitError) {
+            throw ('error not emitted');
+        }
+    });
 
     it('should revert on default call', async () => {
         let emitError = false;
